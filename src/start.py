@@ -7,13 +7,13 @@ def index():
     if request.method == "POST":
         session.clear()
         session["userId"] = request.form["username"]
+        session["room"] = request.form["room"]
         
-        current_app.logger.info(f"Got username: {session.get('userId')}")
+        current_app.logger.info(f"Got username: {session.get('userId')} with room: {session.get('room')}")
         return redirect(url_for("start.loading"))
 
     return render_template("start/index.html")
 
 @bp.route("/loading")
 def loading():
-    current_app.logger.info(f"Session: {session.get('userId')}")
     return render_template("start/loading.html")

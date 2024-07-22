@@ -2,21 +2,20 @@ from flask import Flask, render_template, session
 from flask_socketio import SocketIO
 from random import randint
 
+import start
+
 app = Flask(__name__)
+app.register_blueprint(start.bp)
 
 socket = SocketIO(app)
 
-ids = [0]
-
-@app.route("/")
-def index():
-    return render_template("index.html")
+ids = []
 
 @socket.on("connect")
 def handle_connect():
     session.clear()
     
-    userId = ids[-1] + 1
+    userId = ids[-1] + 1 if len(ids) > 0 else 0
     ids.append(userId)
     session["userId"] = userId
 

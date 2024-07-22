@@ -2,9 +2,14 @@
 <html>
     <body>
         <p id="world">Hello world!</p>
+        <form method="post">
+            <input name="username">
+            <input type="submit">
+        </form>
+        
         <button id="connect">Connect</button>
 
         <script src="https://cdn.socket.io/4.7.5/socket.io.min.js"></script>
-        <script src="{{ url_for('static', filename='script.js') }}"></script>
+        <script src="{{ url_for('static', filename='start.js') }}"></script>
     </body>
 </html>

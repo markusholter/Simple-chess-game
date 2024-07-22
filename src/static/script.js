@@ -1,6 +1,6 @@
 let socket = io.connect("ws://127.0.0.1:5000")
 
-document.getElementById("button").onclick = function() {
+document.getElementById("connect").onclick = function() {
     socket.emit("message", "Hello")
 }
 

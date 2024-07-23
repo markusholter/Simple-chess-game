@@ -3,7 +3,7 @@
     <body>
         <h1 id="status">Loading</h1>
         <h2>Username: {{ session.get('userId') }}</h2>
-        <h2>Room: {{ session.get('room') }} </h2>
+        <h2>Room: {{ session.get('roomName') }} </h2>
         
         <script src="https://cdn.socket.io/4.7.5/socket.io.min.js"></script>
         <script src="{{ url_for('static', filename='start.js') }}"></script>

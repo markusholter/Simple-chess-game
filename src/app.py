@@ -21,7 +21,28 @@ rooms: dict[str, Room] = app.config["ROOMS"]
 
 @socket.on("connect")
 def handle_connect(_):
+    roomName = session.get("roomName")
+    player = session.get("userId")
+
     usernames.add(session.get("userId"))
+
+    if roomName not in rooms:
+        app.logger.info("Creating room")
+        room = Room(roomName, player)
+        rooms[roomName] = room
+
+        join_room(roomName)
+        
+    else:
+        room: Room = rooms[roomName]
+        if not room.getWaiting(): return
+
+        app.logger.info("Adding Player2 to room")
+        room.addPlayer2(player)
+        join_room(roomName)
+        emit("message", "Ready to start", to=roomName)
+    
+
     app.logger.info(f"Client connected with userId {session.get('userId')}")
 
 @socket.on("disconnect")
@@ -32,26 +53,6 @@ def handle_disconnect():
 @socket.on("message")
 def handle_message(data):
     app.logger.info(f"Got message from {session.get('userId')} containing {data}")
-
-@socket.on("join")
-def on_join(_):
-    roomName = session.get("room")
-    player = session.get("userId")
-
-    if roomName not in rooms:
-        room = Room(roomName, player)
-        rooms[session.get("room")] = room
-
-        join_room(roomName)
-        return
-    
-    room: Room = rooms[roomName]
-    if room.getWaiting():
-        app.logger.info("Adding Player2")
-        room.addPlayer2(player)
-        join_room(roomName)
-        emit("message", "Ready to start", to=roomName)
-        return
     
     
 

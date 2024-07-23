@@ -1,7 +1,12 @@
 <!DOCTYPE html>
 <html>
     <body>
-        <p id="world">Hello world!</p>
+        <h1>Title</h1>
+
+        {% for message in get_flashed_messages() %}
+            <div class="flash">{{ message }}</div>
+        {% endfor %}
+        
         <form method="post">
             <label for="username">Screen name: </label>
             <input name="username">

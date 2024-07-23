@@ -1,9 +1,100 @@
 <!DOCTYPE html>
 <html>
+    <head>
+        <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    </head>
     <body>
-        <h1 id="status">Waiting for player..</h1>
-        <h2>Username: {{ session.get('userId') }}</h2>
-        <h2>Room: {{ session.get('roomName') }} </h2>
+        <div class="headers">
+            <h2 id="status">Waiting for player..</h2>
+            <h2>Room: {{ session.get('roomName') }}</h2>
+            <h3>Opponent</h3>
+        </div>
+
+        <div class="chessboard">
+            <div class="row">
+                <div class="cell black"></div>
+                <div class="cell white"></div>
+                <div class="cell black"></div>
+                <div class="cell white"></div>
+                <div class="cell black"></div>
+                <div class="cell white"></div>
+                <div class="cell black"></div>
+                <div class="cell white"></div>
+            </div>
+            <div class="row">
+                <div class="cell white"></div>
+                <div class="cell black"></div>
+                <div class="cell white"></div>
+                <div class="cell black"></div>
+                <div class="cell white"></div>
+                <div class="cell black"></div>
+                <div class="cell white"></div>
+                <div class="cell black"></div>
+            </div>
+            <div class="row">
+                <div class="cell black"></div>
+                <div class="cell white"></div>
+                <div class="cell black"></div>
+                <div class="cell white"></div>
+                <div class="cell black"></div>
+                <div class="cell white"></div>
+                <div class="cell black"></div>
+                <div class="cell white"></div>
+            </div>
+            <div class="row">
+                <div class="cell white"></div>
+                <div class="cell black"></div>
+                <div class="cell white"></div>
+                <div class="cell black"></div>
+                <div class="cell white"></div>
+                <div class="cell black"></div>
+                <div class="cell white"></div>
+                <div class="cell black"></div>
+            </div>
+            <div class="row">
+                <div class="cell black"></div>
+                <div class="cell white"></div>
+                <div class="cell black"></div>
+                <div class="cell white"></div>
+                <div class="cell black"></div>
+                <div class="cell white"></div>
+                <div class="cell black"></div>
+                <div class="cell white"></div>
+            </div>
+            <div class="row">
+                <div class="cell white"></div>
+                <div class="cell black"></div>
+                <div class="cell white"></div>
+                <div class="cell black"></div>
+                <div class="cell white"></div>
+                <div class="cell black"></div>
+                <div class="cell white"></div>
+                <div class="cell black"></div>
+            </div>
+            <div class="row">
+                <div class="cell black"></div>
+                <div class="cell white"></div>
+                <div class="cell black"></div>
+                <div class="cell white"></div>
+                <div class="cell black"></div>
+                <div class="cell white"></div>
+                <div class="cell black"></div>
+                <div class="cell white"></div>
+            </div>
+            <div class="row">
+                <div class="cell white"></div>
+                <div class="cell black"></div>
+                <div class="cell white"></div>
+                <div class="cell black"></div>
+                <div class="cell white"></div>
+                <div class="cell black"></div>
+                <div class="cell white"></div>
+                <div class="cell black"></div>
+            </div>
+        </div>
+        <div class="username">
+            <h3>{{ session.get('userId') }}</h3>
+        </div>
         
         <script src="https://cdn.socket.io/4.7.5/socket.io.min.js"></script>
         <script src="{{ url_for('static', filename='script.js') }}"></script>

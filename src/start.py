@@ -24,7 +24,7 @@ def index():
 
         if error is None:
             current_app.logger.info(f"Got username: {session.get('userId')} with room: {session.get('roomName')}")
-            return redirect(url_for("start.loading"))
+            return redirect(url_for("game.board"))
         
         flash(error)
 
@@ -38,7 +38,3 @@ def room_full(roomName):
 
     if roomName not in rooms: return False
     return not rooms[roomName].getWaiting()
-
-@bp.route("/loading")
-def loading():
-    return render_template("start/loading.html")

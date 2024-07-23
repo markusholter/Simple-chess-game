@@ -1,8 +1,13 @@
 let socket = io.connect("ws://127.0.0.1:5000")
 
-socket.on("redirect", function(url) {
-    window.location.href = url
+socket.on("start", function(player) {
+    document.getElementById("status").innerHTML = "Start!"
+    turn(player)
 })
+
+function turn(player) {
+
+}
 
 socket.on("alert", function(text) {
     alert(text)

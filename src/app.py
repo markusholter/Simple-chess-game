@@ -42,7 +42,7 @@ def handle_connect(_):
         app.logger.info("Adding Player2 to room")
         room.addPlayer2(player)
         join_room(roomName)
-        emit("redirect", url_for("game.board"), to=roomName)
+        emit("start", room.getPlayer1(), to=roomName)
     
 
     app.logger.info(f"Client connected with userId {session.get('userId')}")
@@ -67,12 +67,6 @@ def handle_disconnect():
 def handle_message(data):
     app.logger.info(f"Got message from {session.get('userId')} containing {data}")
     
-    
-
-@app.route("/send")
-def send_new():
-    socket.emit("message", "New hello world!")
-    return "Success!"
 
 if __name__ == "__main__":
     socket.run(app, debug=True)

@@ -4,17 +4,20 @@ from flask_socketio import SocketIO, join_room, leave_room, emit
 import start
 from objects.Room import Room
 
+class Config:
+    SECRET_KEY = "dev"
+    USERNAMES: set[str] = set()
+    ROOMS: dict[str, Room] = {}
+
 app = Flask(__name__)
-app.config.from_mapping(
-    SECRET_KEY="dev"
-)
+app.config.from_object(Config)
 
 app.register_blueprint(start.bp)
 
 socket = SocketIO(app)
 
-usernames = set() 
-rooms = {}
+usernames: set[str] = app.config["USERNAMES"]
+rooms: dict[str, Room] = app.config["ROOMS"]
 
 @socket.on("connect")
 def handle_connect(_):

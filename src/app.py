@@ -42,14 +42,25 @@ def handle_connect(_):
         app.logger.info("Adding Player2 to room")
         room.addPlayer2(player)
         join_room(roomName)
-        emit("start", url_for("game.board"), to=roomName)
+        emit("redirect", url_for("game.board"), to=roomName)
     
 
     app.logger.info(f"Client connected with userId {session.get('userId')}")
 
 @socket.on("disconnect")
 def handle_disconnect():
-    usernames.remove(session.get("userId"))
+    username = session.get("userId")
+    roomName = session.get("roomName")
+    session.clear()
+
+    usernames.remove(username)
+    leave_room(roomName)
+
+    if roomName in rooms:
+        rooms.pop(roomName)
+    
+    emit("alert", f"{username} disconnected.", to=roomName)
+
     app.logger.info(f"Client {session.get('userId')} disconnected")
 
 @socket.on("message")

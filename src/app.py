@@ -1,7 +1,8 @@
-from flask import Flask, render_template, session
+from flask import Flask, session, url_for
 from flask_socketio import SocketIO, join_room, leave_room, emit
 
 import start
+import game
 from objects.Room import Room
 
 class Config:
@@ -13,6 +14,7 @@ app = Flask(__name__)
 app.config.from_object(Config)
 
 app.register_blueprint(start.bp)
+app.register_blueprint(game.bp)
 
 socket = SocketIO(app)
 
@@ -40,7 +42,7 @@ def handle_connect(_):
         app.logger.info("Adding Player2 to room")
         room.addPlayer2(player)
         join_room(roomName)
-        emit("message", "Ready to start", to=roomName)
+        emit("start", url_for("game.board"), to=roomName)
     
 
     app.logger.info(f"Client connected with userId {session.get('userId')}")

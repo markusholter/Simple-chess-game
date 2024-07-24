@@ -1,3 +1,7 @@
+:root {
+    --cell-size: 75vmin
+}
+
 body {
     text-align: center;
     font-size: 2vmin;
@@ -12,6 +16,37 @@ h2 {
 
 h3{
     margin: 2vmin;
+}
+
+.container {
+    display: grid;
+    grid-template-columns: auto 75vmin;
+    grid-template-rows: auto 75vmin;
+    justify-content: center;
+    align-items: center;
+    gap: 2vmin;
+}
+
+.row-labels {
+    display: grid;
+    grid-template-rows: repeat(8, 12.5%);
+    justify-content: center;
+    height: 75vmin;
+    margin-bottom: 10vmin;
+}
+
+.row-label {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.5vmin;
+    height: 100%;
+}
+
+.board-with-col {
+    display: grid;
+    grid-template-rows: 75vmin auto;
+    gap: 2mvin;
 }
 
 .chessboard {
@@ -39,4 +74,20 @@ h3{
 
 .cell.white {
     background-color: #eeeed2;
+}
+
+.col-labels {
+    display: grid;
+    grid-template-columns: repeat(8, 12.5%);
+    justify-content: center;
+    width: 75vmin;
+    margin-top: 2vmin;
+}
+
+.col-label {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.5vmin;
+    height: 100%;
 }

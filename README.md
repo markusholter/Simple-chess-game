@@ -11,3 +11,6 @@ $ . .venv/bin/activate
 ```
 pip install flask flask-socketio
 ```
+
+## Technical debt
+- The row-numbers in style.css is adjusted with margin-bottom to account for screen name beneath chessboard.

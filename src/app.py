@@ -24,6 +24,10 @@ rooms: dict[str, Room] = app.config["ROOMS"]
 @socket.on("connect")
 def handle_connect(_):
     roomName = session.get("roomName")
+
+    if roomName not in rooms:
+        return
+    
     room = rooms[roomName]
 
     if room.getWaiting():

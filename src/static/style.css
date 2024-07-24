@@ -1,5 +1,5 @@
 :root {
-    --cell-size: 75vmin
+    --cell-size: 70vmin
 }
 
 body {
@@ -20,8 +20,8 @@ h3{
 
 .container {
     display: grid;
-    grid-template-columns: auto 75vmin;
-    grid-template-rows: auto 75vmin;
+    grid-template-columns: auto var(--cell-size);
+    grid-template-rows: auto var(--cell-size);
     justify-content: center;
     align-items: center;
     gap: 2vmin;
@@ -31,7 +31,7 @@ h3{
     display: grid;
     grid-template-rows: repeat(8, 12.5%);
     justify-content: center;
-    height: 75vmin;
+    height: var(--cell-size);
     margin-bottom: 10vmin;
 }
 
@@ -45,15 +45,15 @@ h3{
 
 .board-with-col {
     display: grid;
-    grid-template-rows: 75vmin auto;
+    grid-template-rows: var(--cell-size) auto;
     gap: 2mvin;
 }
 
 .chessboard {
     margin: auto;
     display: grid;
-    width: 75vmin;
-    height: 75vmin;
+    width: var(--cell-size);
+    height: var(--cell-size);
     grid-template-columns: repeat(8, 12.5%);
     grid-template-rows: repeat(8, 12.5%);
     border: 2px solid #333;
@@ -80,7 +80,7 @@ h3{
     display: grid;
     grid-template-columns: repeat(8, 12.5%);
     justify-content: center;
-    width: 75vmin;
+    width: var(--cell-size);
     margin-top: 2vmin;
 }
 

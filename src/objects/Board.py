@@ -16,6 +16,9 @@ class Board:
     
     def get_white_board(self):
         return self.rows, self.cols, self.board
+    
+    def get_black_board(self):
+        return self.rows[::-1], self.cols[::-1], self.board[::-1]
 
 
 

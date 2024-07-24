@@ -24,25 +24,16 @@ rooms: dict[str, Room] = app.config["ROOMS"]
 @socket.on("connect")
 def handle_connect(_):
     roomName = session.get("roomName")
-    player = session.get("userId")
+    room = rooms[roomName]
 
-    usernames.add(session.get("userId"))
-
-    if roomName not in rooms:
-        app.logger.info("Creating room")
-        room = Room(roomName, player)
-        rooms[roomName] = room
-
+    if room.getWaiting():
+        app.logger.info("Adding player1 to socket room")
         join_room(roomName)
         
     else:
-        room: Room = rooms[roomName]
-        if not room.getWaiting(): return
-
-        app.logger.info("Adding Player2 to room")
-        room.addPlayer2(player)
+        app.logger.info("Adding Player2 to socket room")
         join_room(roomName)
-        emit("start", room.getPlayer1(), to=roomName)
+        emit("start", "", to=roomName)
     
 
     app.logger.info(f"Client connected with userId {session.get('userId')}")

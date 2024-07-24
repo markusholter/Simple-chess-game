@@ -24,86 +24,14 @@
 
             <div class="board-with-col">
                 <div class="chessboard">
-                    <div class="row">
-                        <div class="cell black"></div>
-                        <div class="cell white"></div>
-                        <div class="cell black"></div>
-                        <div class="cell white"></div>
-                        <div class="cell black"></div>
-                        <div class="cell white"></div>
-                        <div class="cell black"></div>
-                        <div class="cell white"></div>
-                    </div>
-                    <div class="row">
-                        <div class="cell white"></div>
-                        <div class="cell black"></div>
-                        <div class="cell white"></div>
-                        <div class="cell black"></div>
-                        <div class="cell white"></div>
-                        <div class="cell black"></div>
-                        <div class="cell white"></div>
-                        <div class="cell black"></div>
-                    </div>
-                    <div class="row">
-                        <div class="cell black"></div>
-                        <div class="cell white"></div>
-                        <div class="cell black"></div>
-                        <div class="cell white"></div>
-                        <div class="cell black"></div>
-                        <div class="cell white"></div>
-                        <div class="cell black"></div>
-                        <div class="cell white"></div>
-                    </div>
-                    <div class="row">
-                        <div class="cell white"></div>
-                        <div class="cell black"></div>
-                        <div class="cell white"></div>
-                        <div class="cell black"></div>
-                        <div class="cell white"></div>
-                        <div class="cell black"></div>
-                        <div class="cell white"></div>
-                        <div class="cell black"></div>
-                    </div>
-                    <div class="row">
-                        <div class="cell black"></div>
-                        <div class="cell white"></div>
-                        <div class="cell black"></div>
-                        <div class="cell white"></div>
-                        <div class="cell black"></div>
-                        <div class="cell white"></div>
-                        <div class="cell black"></div>
-                        <div class="cell white"></div>
-                    </div>
-                    <div class="row">
-                        <div class="cell white"></div>
-                        <div class="cell black"></div>
-                        <div class="cell white"></div>
-                        <div class="cell black"></div>
-                        <div class="cell white"></div>
-                        <div class="cell black"></div>
-                        <div class="cell white"></div>
-                        <div class="cell black"></div>
-                    </div>
-                    <div class="row">
-                        <div class="cell black"></div>
-                        <div class="cell white"></div>
-                        <div class="cell black"></div>
-                        <div class="cell white"></div>
-                        <div class="cell black"></div>
-                        <div class="cell white"></div>
-                        <div class="cell black"></div>
-                        <div class="cell white"></div>
-                    </div>
-                    <div class="row">
-                        <div class="cell white"></div>
-                        <div class="cell black"></div>
-                        <div class="cell white"></div>
-                        <div class="cell black"></div>
-                        <div class="cell white"></div>
-                        <div class="cell black"></div>
-                        <div class="cell white"></div>
-                        <div class="cell black"></div>
-                    </div>
+                    {% for row in board %}
+                        <div class="row">
+                            {% for cell in row %}
+                                <div class="{{cell[0]}}"></div>
+                            {% endfor %}
+                        </div>
+                    {% endfor %}
+
                 </div>
         
                 <div class="col-labels">
@@ -118,7 +46,7 @@
                 </div>
 
                 <div class="username">
-                    <h3>{{ session.get('userId') }} sasdasd</h3>
+                    <h3>{{ session.get('userId') }} </h3>
                 </div>
             </div>
         </div>

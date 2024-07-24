@@ -1,6 +1,8 @@
 class Board:
     def __init__(self):
         self.board: list[list[tuple[str, str]]] = self.make_board()
+        self.rows: list[str] = [str(x) for x in range(8, 0, -1)]
+        self.cols: list[str] = ["A", "B", "C", "D", "E", "F", "G", "H"]
 
     # Make board top to bottom from the white players perspective
     def make_board(self):
@@ -13,7 +15,7 @@ class Board:
         ]
     
     def get_white_board(self):
-        return self.board
+        return self.rows, self.cols, self.board
 
 
 

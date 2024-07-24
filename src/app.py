@@ -61,7 +61,7 @@ def handle_disconnect():
     
     emit("alert", f"{username} disconnected.", to=roomName)
 
-    app.logger.info(f"Client {session.get('userId')} disconnected")
+    app.logger.info(f"Client {username} disconnected")
 
 @socket.on("message")
 def handle_message(data):

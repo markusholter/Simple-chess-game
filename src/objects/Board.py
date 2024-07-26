@@ -6,9 +6,17 @@ class Board:
 
     # Make board top to bottom from the white players perspective
     def make_board(self):
+        piece_positions = {
+            0: ["rook-b.svg", "knight-b.svg", "bishop-b.svg", "queen-b.svg", "king-b.svg", "bishop-b.svg", "knight-b.svg", "rook-b.svg"],
+            1: ["pawn-b.svg"] * 8,
+            6: ["pawn-w.svg"] * 8,
+            7: ["rook-w.svg", "knight-w.svg", "bishop-w.svg", "queen-w.svg", "king-w.svg", "bishop-w.svg", "knight-w.svg", "rook-w.svg"]
+        }
+
         return [
             [
-                ("cell black", None) if (i + j) % 2 == 0 else ("cell white", None)
+                ("cell black", piece_positions.get(i, [""] * 8)[j]) if (i + j) % 2 == 0 
+                else ("cell white", piece_positions.get(i, [""] * 8)[j])
                 for j in range(8)
             ]
             for i in range(8)

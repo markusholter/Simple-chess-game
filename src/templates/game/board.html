@@ -22,7 +22,11 @@
                     {% for row in board %}
                         <div class="row">
                             {% for cell in row %}
-                                <div class="{{ cell[0] }}"></div>
+                                <div class="{{ cell[0] }}">
+                                    {% if cell[1] %}
+                                        <img class="cell piece" src="{{ url_for('static', filename='pieces/' + cell[1]) }}">
+                                    {% endif %}
+                                </div>
                             {% endfor %}
                         </div>
                     {% endfor %}

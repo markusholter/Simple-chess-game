@@ -1,3 +1,7 @@
+## Pieces
+Currently got pictures of chess pieces from this site:
+https://greenchess.net/info.php?item=downloads
+
 ## Virtual environment
 - Make one with venv:
 ```

@@ -1,5 +1,5 @@
 let socket = io.connect("ws://127.0.0.1:5000")
-var currentParent
+var currentParentId
 var currentImage = null
 
 socket.on("start", function() {
@@ -18,7 +18,7 @@ socket.on("alert", function(text) {
 
 function drag(event) {
     currentImage = event.target
-    currentParent = currentImage.closest(".cell")
+    currentParentId = currentImage.closest(".cell").id
 }
 
 function allowDrop(event) {
@@ -27,11 +27,6 @@ function allowDrop(event) {
 
 function drop(event) {
     event.preventDefault()
-    currentParent.innerHTML = ""
+    document.getElementById(currentParentId).innerHTML = ""
     event.target.appendChild(currentImage)
-}
-
-// Old
-document.getElementById("connect").onclick = function() {
-    socket.emit("message", "Hello")
 }

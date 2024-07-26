@@ -15,8 +15,8 @@ class Board:
 
         return [
             [
-                ("cell black", piece_positions.get(i, [""] * 8)[j]) if (i + j) % 2 == 0 
-                else ("cell white", piece_positions.get(i, [""] * 8)[j])
+                ("cell black", piece_positions.get(i, [""] * 8)[j], f"{i} {j}") if (i + j) % 2 == 0 
+                else ("cell white", piece_positions.get(i, [""] * 8)[j], f"{i} {j}")
                 for j in range(8)
             ]
             for i in range(8)
@@ -27,7 +27,6 @@ class Board:
     
     def get_black_board(self):
         return self.rows[::-1], self.cols[::-1], self.board[::-1]
-
 
 
 

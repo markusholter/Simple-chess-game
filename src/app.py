@@ -58,6 +58,16 @@ def handle_disconnect():
 
     app.logger.info(f"Client {username} disconnected")
 
+@socket.on("getOpponent")
+def get_opponent():
+    username = session.get("userId")
+    roomName = session.get("roomName")
+    room = rooms[roomName]
+    player1 = room.getPlayer1()
+    player2 = room.getPlayer2()
+
+    emit("opponent", player1 if username == player2 else player2)
+
 @socket.on("message")
 def handle_message(data):
     app.logger.info(f"Got message from {session.get('userId')} containing {data}")

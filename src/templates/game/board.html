@@ -22,9 +22,9 @@
                     {% for row in board %}
                         <div class="row">
                             {% for cell in row %}
-                                <div class="{{ cell[0] }}">
+                                <div class="{{ cell[0] }}", ondragover="allowDrop(event)", ondrop="drop(event)">
                                     {% if cell[1] %}
-                                        <img class="cell piece" src="{{ url_for('static', filename='pieces/' + cell[1]) }}">
+                                        <img class="piece" src="{{ url_for('static', filename='pieces/' + cell[1]) }}", draggable="true", ondragstart="drag(event)">
                                     {% endif %}
                                 </div>
                             {% endfor %}

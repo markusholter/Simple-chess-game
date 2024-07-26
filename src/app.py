@@ -37,7 +37,7 @@ def handle_connect(_):
     else:
         app.logger.info("Adding Player2 to socket room")
         join_room(roomName)
-        emit("start", "", to=roomName)
+        emit("start", to=roomName)
     
 
     app.logger.info(f"Client connected with userId {session.get('userId')}")

@@ -1,6 +1,6 @@
 let socket = io.connect("ws://127.0.0.1:5000")
 
-socket.on("start", function(_) {
+socket.on("start", function() {
     document.getElementById("status").innerHTML = "Start!"
     socket.emit("getOpponent")
 })

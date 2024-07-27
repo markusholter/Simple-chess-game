@@ -6,6 +6,8 @@ class Room:
         self.player1 = player1
         self.player2 = player2
         self.waiting = True
+        self.turn = player1
+        self.not_turn = player2
         self.board = Board.Board()
 
     def getRoomName(self): return self.roomName
@@ -13,7 +15,10 @@ class Room:
     def getPlayer2(self): return self.player2
     def getWaiting(self): return self.waiting
     def getBoard(self): return self.board
+    def getTurn(self): return self.turn
+    def getNotTurn(self): return self.not_turn
 
     def addPlayer2(self, player2):
         self.player2 = player2
         self.waiting = False
+        self.not_turn = player2

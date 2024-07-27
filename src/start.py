@@ -54,7 +54,7 @@ def create_room(player, roomName):
     return True
 
 def username_exists(username: str):
-    return username in current_app.config["USERNAMES"]
+    return username in current_app.config["USERNAMES"] or not username
 
 def room_full(roomName):
     rooms: dict[str, Room] = current_app.config["ROOMS"]

@@ -24,6 +24,8 @@ rooms: dict[str, Room] = app.config["ROOMS"]
 @socket.on("connect")
 def handle_connect(_):
     roomName = session.get("roomName")
+    username = session.get("userId")
+    join_room(username)
 
     if roomName not in rooms:
         return
@@ -35,9 +37,10 @@ def handle_connect(_):
         join_room(roomName)
         
     else:
-        app.logger.info("Adding Player2 to socket room")
+        app.logger.info("Adding Player2 to socket room and starting game")
         join_room(roomName)
-        emit("start", to=roomName)
+        emit("you", to=room.getTurn())
+        emit("opponent", to=room.getNotTurn())
     
 
     app.logger.info(f"Client connected with userId {session.get('userId')}")
@@ -66,7 +69,7 @@ def get_opponent():
     player1 = room.getPlayer1()
     player2 = room.getPlayer2()
 
-    emit("opponent", player1 if username == player2 else player2)
+    emit("opponentName", player1 if username == player2 else player2)
 
 @socket.on("message")
 def handle_message(data):

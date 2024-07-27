@@ -1,13 +1,24 @@
 let socket = io.connect("ws://127.0.0.1:5000")
 var currentParentId
 var currentImage = null
+var turn = null
 
-socket.on("start", function() {
-    document.getElementById("status").innerHTML = "Start!"
-    socket.emit("getOpponent")
+socket.on("you", function() {
+    if (turn == null) {
+        turn = true
+        document.getElementById("status").innerHTML = "Your turn"
+        socket.emit("getOpponent")
+    }
 })
 
-socket.on("opponent", function(opponent) {
+socket.on("opponent", function() {
+    if (turn == null) {
+        document.getElementById("status").innerHTML = "Opponents turn"
+        socket.emit("getOpponent")
+    }
+})
+
+socket.on("opponentName", function(opponent) {
     document.getElementById("opponent").innerHTML = opponent
 })
 

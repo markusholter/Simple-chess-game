@@ -22,3 +22,11 @@ class Room:
         self.player2 = player2
         self.waiting = False
         self.not_turn = player2
+
+    def switchTurn(self):
+        curr = self.turn
+        self.turn = self.not_turn
+        self.not_turn = curr
+
+    def checkTurn(self, move):
+        return self.board.turn(move)

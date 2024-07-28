@@ -4,7 +4,7 @@ var currentImage = null
 var turn = null
 
 socket.on("you", function() {
-    if (turn == null) {
+    if (turn == null || true) {
         turn = true
         document.getElementById("status").innerHTML = "Your turn"
         socket.emit("getOpponent")
@@ -12,7 +12,8 @@ socket.on("you", function() {
 })
 
 socket.on("opponent", function() {
-    if (turn == null) {
+    if (turn == null || true) {
+        turn = false
         document.getElementById("status").innerHTML = "Opponents turn"
         socket.emit("getOpponent")
     }
@@ -38,6 +39,20 @@ function allowDrop(event) {
 
 function drop(event) {
     event.preventDefault()
+    if (turn) {
+        var move
+
+        // Sends coordinates even if there is a picture at the place of drop
+        if (event.target.id) move = currentParentId + "," + event.target.id
+        else {
+            var targetParent = event.target.closest(".cell")
+            move = currentParentId + "," + targetParent.id
+        }
+        socket.emit("turn", move)    
+    }
+    
+
+    return
     document.getElementById(currentParentId).innerHTML = ""
     event.target.appendChild(currentImage)
 }

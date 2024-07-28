@@ -45,6 +45,20 @@ def handle_connect(_):
 
     app.logger.info(f"Client connected with userId {session.get('userId')}")
 
+@socket.on("turn")
+def turn(move):
+    app.logger.info("Checking if turn is possible")
+    roomName = session.get("roomName")
+    room = rooms[roomName]
+    if room.checkTurn(move):
+        app.logger.info("Turn possible, switching whose turn it is")
+        room.switchTurn()
+        emit("you", to=room.getTurn())
+        emit("opponent", to=room.getNotTurn())
+    else:
+        app.logger.info("Turn not possible")
+
+
 @socket.on("disconnect")
 def handle_disconnect():
     username = session.get("userId")

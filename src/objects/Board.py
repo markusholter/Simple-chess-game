@@ -29,6 +29,26 @@ class Board:
     
     def get_black_board(self):
         return self.rows[::-1], self.cols[::-1], [x[::-1] for x in self.board][::-1]
+    
+    def turn(self, move: str):
+        current_app.logger.info(move)
+
+        try: # Currently ignoring when trying to move to another piece.
+            start = [int(x) for x in move.split(",")[0].split(" ")]
+            end = [int(x) for x in move.split(",")[1].split(" ")]
+        except:
+            return False
+        
+        if not self.board[start[0]][start[1]][1]:
+            return False
+        if self.board[end[0]][end[1]][1]:
+            return False
+        
+        piece = self.board[start[0]][start[1]][1]
+
+        self.board[end[0]][end[1]] = (self.board[end[0]][end[1]][0], piece, self.board[end[0]][end[1]][2])
+        self.board[start[0]][start[1]] = (self.board[start[0]][start[1]][0], "", self.board[start[0]][start[1]][2])
+        return True
 
 
 

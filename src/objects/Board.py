@@ -1,3 +1,5 @@
+from flask import current_app
+
 class Board:
     def __init__(self):
         self.board: list[list[tuple[str, str]]] = self.make_board()
@@ -15,7 +17,7 @@ class Board:
 
         return [
             [
-                ("cell black", piece_positions.get(i, [""] * 8)[j], f"{i} {j}") if (i + j) % 2 == 0 
+                ("cell black", piece_positions.get(i, [""] * 8)[j], f"{i} {j}") if (i + j) % 2 == 1 
                 else ("cell white", piece_positions.get(i, [""] * 8)[j], f"{i} {j}")
                 for j in range(8)
             ]
@@ -26,7 +28,7 @@ class Board:
         return self.rows, self.cols, self.board
     
     def get_black_board(self):
-        return self.rows[::-1], self.cols[::-1], self.board[::-1]
+        return self.rows[::-1], self.cols[::-1], [x[::-1] for x in self.board][::-1]
 
 
 

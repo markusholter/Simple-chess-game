@@ -39,8 +39,6 @@ class Board:
         
         if not self.board[start[0]][start[1]][1]:
             return False
-        if self.board[end[0]][end[1]][1]:
-            return False
         
         piece = self.board[start[0]][start[1]][1]
 

@@ -22,7 +22,10 @@ function doTurn(mine, move) {
     end = move.split(",")[1]
 
     var currentImage = document.getElementById(start).querySelector("img")
+    var attackedImage = document.getElementById(end).querySelector("img")
+
     document.getElementById(start).removeChild(currentImage)
+    if (attackedImage != null) document.getElementById(end).removeChild(attackedImage)
     document.getElementById(end).appendChild(currentImage)
 }
 

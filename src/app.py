@@ -39,8 +39,8 @@ def handle_connect(_):
     else:
         app.logger.info("Adding Player2 to socket room and starting game")
         join_room(roomName)
-        emit("you", to=room.getTurn())
-        emit("opponent", to=room.getNotTurn())
+        emit("you", "", to=room.getTurn())
+        emit("opponent", "", to=room.getNotTurn())
     
 
     app.logger.info(f"Client connected with userId {session.get('userId')}")
@@ -53,8 +53,8 @@ def turn(move):
     if room.checkTurn(move):
         app.logger.info("Turn possible, switching whose turn it is")
         room.switchTurn()
-        emit("you", to=room.getTurn())
-        emit("opponent", to=room.getNotTurn())
+        emit("you", move, to=room.getTurn())
+        emit("opponent", move, to=room.getNotTurn())
     else:
         app.logger.info("Turn not possible")
 

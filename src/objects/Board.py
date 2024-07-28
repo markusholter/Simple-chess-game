@@ -33,11 +33,9 @@ class Board:
     def turn(self, move: str):
         current_app.logger.info(move)
 
-        try: # Currently ignoring when trying to move to another piece.
-            start = [int(x) for x in move.split(",")[0].split(" ")]
-            end = [int(x) for x in move.split(",")[1].split(" ")]
-        except:
-            return False
+        start = [int(x) for x in move.split(",")[0].split(" ")]
+        end = [int(x) for x in move.split(",")[1].split(" ")]
+        
         
         if not self.board[start[0]][start[1]][1]:
             return False

@@ -1,23 +1,30 @@
 let socket = io.connect("ws://127.0.0.1:5000")
 var currentParentId
-var currentImage = null
 var turn = null
 
-socket.on("you", function() {
-    if (turn == null || true) {
-        turn = true
-        document.getElementById("status").innerHTML = "Your turn"
-        socket.emit("getOpponent")
-    }
+socket.on("you", function(move) {
+    doTurn(true, move)
 })
 
-socket.on("opponent", function() {
-    if (turn == null || true) {
-        turn = false
-        document.getElementById("status").innerHTML = "Opponents turn"
+socket.on("opponent", function(move) {
+    doTurn(false, move)
+})
+
+function doTurn(mine, move) {
+    if (turn == null) {
         socket.emit("getOpponent")
     }
-})
+    turn = mine
+    document.getElementById("status").innerHTML = (turn) ? "Your turn" : "Opponents turn"
+    if (!move) return
+
+    start = move.split(",")[0]
+    end = move.split(",")[1]
+
+    var currentImage = document.getElementById(start).querySelector("img")
+    document.getElementById(start).removeChild(currentImage)
+    document.getElementById(end).appendChild(currentImage)
+}
 
 socket.on("opponentName", function(opponent) {
     document.getElementById("opponent").innerHTML = opponent
@@ -29,7 +36,7 @@ socket.on("alert", function(text) {
 })
 
 function drag(event) {
-    currentImage = event.target
+    var currentImage = event.target
     currentParentId = currentImage.closest(".cell").id
 }
 
@@ -51,8 +58,4 @@ function drop(event) {
         socket.emit("turn", move)    
     }
     
-
-    return
-    document.getElementById(currentParentId).innerHTML = ""
-    event.target.appendChild(currentImage)
 }

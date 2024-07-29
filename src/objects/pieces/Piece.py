@@ -16,12 +16,14 @@ class Piece:
     is possibly blocking pieces.
     """
     def checkObstacle(self, start, end, board, vertical, horizontal):
+        from flask import current_app
         curr = start.copy()
-
         curr[0] += vertical
         curr[1] += horizontal
 
         while curr[0] != end[0] or curr[1] != end[1]:
+            
+            current_app.logger.info(f"Current position: {curr}, object: {board[curr[0]][curr[1]][1]}")
             if board[curr[0]][curr[1]][1]:
                 return False
             curr[0] += vertical

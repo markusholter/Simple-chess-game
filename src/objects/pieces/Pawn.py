@@ -6,13 +6,13 @@ class Pawn(Piece):
 
     def turn(self, start, end, board):
         direction = -1 if self.white else 1
-        endPiece: Piece | None = board[end[0]][end[1]][1]
+        endpiece: Piece | None = board[end[0]][end[1]][1]
         
         # Rules for moving pawn forward
         if (start[1] == end[1] and
                 (end[0] - start[0]) * direction <= self.getDistance(start) and
                 (end[0] - start[0]) * direction > 0 and
-                not endPiece and
+                not endpiece and
                 self.checkObstacle(start, end, board, direction, 0)
                 ):
             return True
@@ -22,8 +22,8 @@ class Pawn(Piece):
                 start[1] == end[1] - 1) and
                 (end[0] - start[0]) * direction <= 1 and
                 (end[0] - start[0]) * direction > 0 and
-                endPiece and
-                endPiece.getWhite() != self.white
+                endpiece and
+                endpiece.getWhite() != self.white
                 ):
             return True
 

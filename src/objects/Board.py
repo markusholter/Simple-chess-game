@@ -62,6 +62,8 @@ class Board:
         end = [int(x) for x in move.split(",")[1].split(" ")]
         
         piece: Piece = self.board[start[0]][start[1]][1]
+
+        # Make sure user cannot move opponents piece
         if white != piece.getWhite():
             return False
         

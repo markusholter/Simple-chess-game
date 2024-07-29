@@ -77,7 +77,6 @@ class Board:
 
         self.board[end[0]][end[1]] = (self.board[end[0]][end[1]][0], piece, self.board[end[0]][end[1]][2])
         self.board[start[0]][start[1]] = (self.board[start[0]][start[1]][0], None, self.board[start[0]][start[1]][2])
-        current_app.logger.info("Got there")
         return True
 
 

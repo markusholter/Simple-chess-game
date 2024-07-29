@@ -55,13 +55,15 @@ class Board:
     def get_black_board(self):
         return self.rows[::-1], self.cols[::-1], [x[::-1] for x in self.board][::-1]
     
-    def turn(self, move: str):
+    def turn(self, move: str, white: bool):
         current_app.logger.info(f"Attempted move: {move}")
 
         start = [int(x) for x in move.split(",")[0].split(" ")]
         end = [int(x) for x in move.split(",")[1].split(" ")]
         
         piece: Piece = self.board[start[0]][start[1]][1]
+        if white != piece.getWhite():
+            return False
         
         if not piece.turn(start, end, self.board):
             return False

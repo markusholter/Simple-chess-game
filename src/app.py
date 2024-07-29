@@ -48,9 +48,11 @@ def handle_connect(_):
 @socket.on("turn")
 def turn(move):
     app.logger.info("Checking if turn is possible")
+
+    username = session.get("userId")
     roomName = session.get("roomName")
     room = rooms[roomName]
-    if room.checkTurn(move):
+    if room.checkTurn(move, username):
         app.logger.info("Turn possible, switching whose turn it is")
         room.switchTurn()
         emit("you", move, to=room.getTurn())

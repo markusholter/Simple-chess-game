@@ -28,5 +28,6 @@ class Room:
         self.turn = self.not_turn
         self.not_turn = curr
 
-    def checkTurn(self, move):
-        return self.board.turn(move)
+    def checkTurn(self, move, username):
+        if username != self.turn: return False
+        return self.board.turn(move, True if username == self.player1 else False)

@@ -14,8 +14,6 @@ class Rook(Piece):
         if start[0] == end[0] and start[1] == end[1]:
             return False
         
-        
-
         vertical = 0
         horizontal = 0
         if start[0] == end[0]:

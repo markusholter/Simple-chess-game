@@ -56,18 +56,19 @@ class Board:
         return self.rows[::-1], self.cols[::-1], [x[::-1] for x in self.board][::-1]
     
     def turn(self, move: str):
-        current_app.logger.info(move)
+        current_app.logger.info(f"Attempted move: {move}")
 
         start = [int(x) for x in move.split(",")[0].split(" ")]
         end = [int(x) for x in move.split(",")[1].split(" ")]
         
         piece: Piece = self.board[start[0]][start[1]][1]
         
-        if not piece.turn():
+        if not piece.turn(start, end, self.board):
             return False
 
         self.board[end[0]][end[1]] = (self.board[end[0]][end[1]][0], piece, self.board[end[0]][end[1]][2])
         self.board[start[0]][start[1]] = (self.board[start[0]][start[1]][0], None, self.board[start[0]][start[1]][2])
+        current_app.logger.info("Got there")
         return True
 
 

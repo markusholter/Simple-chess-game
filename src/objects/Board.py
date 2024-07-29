@@ -67,6 +67,11 @@ class Board:
         if white != piece.getWhite():
             return False
         
+        # Make sure possible attacked piece is not of same colour
+        endpiece: Piece = self.board[end[0]][end[1]][1]
+        if endpiece and white == endpiece.getWhite():
+            return False
+        
         if not piece.turn(start, end, self.board):
             return False
 

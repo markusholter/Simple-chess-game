@@ -22,8 +22,7 @@ class Pawn(Piece):
                 start[1] == end[1] - 1) and
                 (end[0] - start[0]) * direction <= 1 and
                 (end[0] - start[0]) * direction > 0 and
-                endpiece and
-                endpiece.getWhite() != self.white
+                endpiece
                 ):
             return True
 

@@ -14,10 +14,6 @@ class Rook(Piece):
         if start[0] == end[0] and start[1] == end[1]:
             return False
         
-        # Rule for checking color of possible attacked piece
-        endpiece: Piece = board[end[0]][end[1]][1]
-        if endpiece and endpiece.getWhite() == self.white:
-            return False
         
 
         vertical = 0

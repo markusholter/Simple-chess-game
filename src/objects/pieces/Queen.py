@@ -5,6 +5,7 @@ class Queen(Piece):
         super().__init__(white, image)
 
     def turn(self, start, end, board):
+        # Rule for checking if queen is moved in something else than a straight line/diagonal
         if (abs(end[0] - start[0]) != abs(end[1] - start[1]) and
                 not (start[0] == end[0] and start[1] != end[1]) and
                 not (start[0] != end[0] and start[1] == end[1])

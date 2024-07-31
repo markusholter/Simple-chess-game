@@ -12,6 +12,7 @@ class Board:
         self.board: list[list[tuple[str, str]]] = self.make_board()
         self.rows: list[str] = [str(x) for x in range(8, 0, -1)]
         self.cols: list[str] = ["A", "B", "C", "D", "E", "F", "G", "H"]
+        self.check: str = ""
 
     # Make board top to bottom from the white players perspective
     def make_board(self):
@@ -57,6 +58,11 @@ class Board:
     
     def turn(self, move: str, white: bool):
         current_app.logger.info(f"Attempted move: {move}")
+        """
+        "Move" is a string in this format: "i j,i j"
+        "i" is the row of the cell, and "j" is the col of the cell.
+        A move has been attempted from "i j" in front of the comma to "i j" after the comma. 
+        """
 
         start = [int(x) for x in move.split(",")[0].split(" ")]
         end = [int(x) for x in move.split(",")[1].split(" ")]
@@ -72,11 +78,14 @@ class Board:
         if endpiece and white == endpiece.getWhite():
             return False
         
+        # Make sure piece has been moved in relation to its moveset
         if not piece.turn(start, end, self.board):
             return False
 
+        # Moves the piece in backen representation of board
         self.board[end[0]][end[1]] = (self.board[end[0]][end[1]][0], piece, self.board[end[0]][end[1]][2])
         self.board[start[0]][start[1]] = (self.board[start[0]][start[1]][0], None, self.board[start[0]][start[1]][2])
+        
         return True
 
 

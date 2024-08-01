@@ -25,3 +25,9 @@ class Rook(Piece):
             elif start[0] > end[0]: vertical = -1
 
         return self.checkObstacle(start, end, board, vertical, horizontal)
+    
+    def canTake(self, white, vertical, horizontal, distance):
+        if white == self.white: return False
+        if abs(vertical) == 1 and abs(horizontal) == 1: return False
+        if vertical == 0 and horizontal == 0: return False
+        return True

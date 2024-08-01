@@ -16,7 +16,6 @@ class Board:
         self.cols: list[str] = ["A", "B", "C", "D", "E", "F", "G", "H"]
         self.whiteKing = (7, 4)
         self.blackKing = (0, 4)
-        self.check: str = ""
 
     # Make board top to bottom from the white players perspective
     def make_board(self):
@@ -62,7 +61,6 @@ class Board:
     
     def turn(self, move: str, white: bool):
         current_app.logger.info(f"Attempted move: {move}")
-        current_app.logger.info(f"White kings position: {self.whiteKing}, black kings position: {self.blackKing}")
         """
         "Move" is a string in this format: "i j,i j"
         "i" is the row of the cell, and "j" is the col of the cell.
@@ -132,7 +130,9 @@ class Board:
                 distance += 1
                 continue
 
-            if piece.canTake(white, vertical, horizontal, distance): return True
+            if piece.canTake(white, vertical, horizontal, distance): 
+                current_app.logger.info("Check detected")
+                return True
             return False
 
 

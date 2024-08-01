@@ -1,3 +1,7 @@
+## Prerequisites
+- Python 3.10.12 or later
+- Python venv package
+
 ## Pieces
 Currently got pictures of chess pieces from this site:
 https://greenchess.net/info.php?item=downloads

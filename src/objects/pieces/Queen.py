@@ -21,3 +21,7 @@ class Queen(Piece):
         elif start[1] > end[1]: horizontal = -1
 
         return self.checkObstacle(start, end, board, vertical, horizontal)
+    
+    def canTake(self, white, vertical, horizontal, distance):
+        if white == self.white: return False
+        return True

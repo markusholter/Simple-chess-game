@@ -9,37 +9,39 @@ from objects.pieces.Rook import Rook
 
 class Board:
     def __init__(self):
-        self.board: list[list[tuple[str, str]]] = self.make_board()
+        self.board: list[list[tuple[str, Piece, str]]] = self.make_board()
         self.rows: list[str] = [str(x) for x in range(8, 0, -1)]
         self.cols: list[str] = ["A", "B", "C", "D", "E", "F", "G", "H"]
+        self.whiteKing = (7, 4)
+        self.blackKing = (0, 4)
         self.check: str = ""
 
     # Make board top to bottom from the white players perspective
     def make_board(self):
         piece_positions = {
-    0: [
-        Rook(False, "rook-b.svg"),
-        Knight(False, "knight-b.svg"),
-        Bishop(False, "bishop-b.svg"),
-        Queen(False, "queen-b.svg"),
-        King(False, "king-b.svg"),
-        Bishop(False, "bishop-b.svg"),
-        Knight(False, "knight-b.svg"),
-        Rook(False, "rook-b.svg")
-    ],
-    1: [Pawn(False, "pawn-b.svg")] * 8,
-    6: [Pawn(True, "pawn-w.svg")] * 8,
-    7: [
-        Rook(True, "rook-w.svg"),
-        Knight(True, "knight-w.svg"),
-        Bishop(True, "bishop-w.svg"),
-        Queen(True, "queen-w.svg"),
-        King(True, "king-w.svg"),
-        Bishop(True, "bishop-w.svg"),
-        Knight(True, "knight-w.svg"),
-        Rook(True, "rook-w.svg")
-    ]
-}
+            0: [
+                Rook(False, "rook-b.svg"),
+                Knight(False, "knight-b.svg"),
+                Bishop(False, "bishop-b.svg"),
+                Queen(False, "queen-b.svg"),
+                King(False, "king-b.svg"),
+                Bishop(False, "bishop-b.svg"),
+                Knight(False, "knight-b.svg"),
+                Rook(False, "rook-b.svg")
+            ],
+            1: [Pawn(False, "pawn-b.svg")] * 8,
+            6: [Pawn(True, "pawn-w.svg")] * 8,
+            7: [
+                Rook(True, "rook-w.svg"),
+                Knight(True, "knight-w.svg"),
+                Bishop(True, "bishop-w.svg"),
+                Queen(True, "queen-w.svg"),
+                King(True, "king-w.svg"),
+                Bishop(True, "bishop-w.svg"),
+                Knight(True, "knight-w.svg"),
+                Rook(True, "rook-w.svg")
+            ]
+        }
 
         return [
             [
@@ -58,6 +60,7 @@ class Board:
     
     def turn(self, move: str, white: bool):
         current_app.logger.info(f"Attempted move: {move}")
+        current_app.logger.info(f"White kings position: {self.whiteKing}, black kings position: {self.blackKing}")
         """
         "Move" is a string in this format: "i j,i j"
         "i" is the row of the cell, and "j" is the col of the cell.
@@ -67,22 +70,26 @@ class Board:
         start = [int(x) for x in move.split(",")[0].split(" ")]
         end = [int(x) for x in move.split(",")[1].split(" ")]
         
-        piece: Piece = self.board[start[0]][start[1]][1]
+        piece = self.board[start[0]][start[1]][1]
 
         # Make sure user cannot move opponents piece
         if white != piece.getWhite():
             return False
         
         # Make sure possible attacked piece is not of same colour
-        endpiece: Piece = self.board[end[0]][end[1]][1]
+        endpiece = self.board[end[0]][end[1]][1]
         if endpiece and white == endpiece.getWhite():
             return False
         
         # Make sure piece has been moved in relation to its moveset
         if not piece.turn(start, end, self.board):
             return False
+        
+        if isinstance(piece, King):
+            if piece.getWhite(): self.whiteKing = tuple(end)
+            else: self.blackKing = tuple(end)
 
-        # Moves the piece in backen representation of board
+        # Moves the piece in backend representation of board
         self.board[end[0]][end[1]] = (self.board[end[0]][end[1]][0], piece, self.board[end[0]][end[1]][2])
         self.board[start[0]][start[1]] = (self.board[start[0]][start[1]][0], None, self.board[start[0]][start[1]][2])
         

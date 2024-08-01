@@ -122,7 +122,7 @@ class Board:
         col = king[1] + horizontal
         distance = 1
 
-        while row < len(newBoard) and col < len(newBoard[row]):
+        while row < len(newBoard) and row >= 0 and col < len(newBoard[row]) and col >= 0:
             piece: Piece = newBoard[row][col][1]
             if not piece: 
                 row += vertical
@@ -131,7 +131,7 @@ class Board:
                 continue
 
             if piece.canTake(white, vertical, horizontal, distance): 
-                current_app.logger.info("Check detected")
+                current_app.logger.info(f"Check detected from position {row} {col}")
                 return True
             return False
 

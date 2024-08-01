@@ -16,3 +16,9 @@ class Bishop(Piece):
         else: horizontal = -1
         
         return self.checkObstacle(start, end, board, vertical, horizontal)
+    
+    def canTake(self, white, vertical, horizontal, distance):
+        if white == self.white: return False
+        if vertical == 0: return False
+        if horizontal == 0: return False
+        return True

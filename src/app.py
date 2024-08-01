@@ -47,8 +47,7 @@ def handle_connect(_):
 
 @socket.on("turn")
 def turn(move):
-    app.logger.info("Checking if turn is possible")
-
+    
     username = session.get("userId")
     roomName = session.get("roomName")
     room = rooms[roomName]

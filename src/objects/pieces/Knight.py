@@ -9,3 +9,7 @@ class Knight(Piece):
         diffy = abs(end[1] - start[1])
 
         return diffx + diffy == 3
+    
+    # Returns False because this method do not have the correct information to decide for the knight.
+    def canTake(self, white, vertical, horizontal, distance):
+        return False

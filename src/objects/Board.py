@@ -85,6 +85,9 @@ class Board:
         if not piece.turn(start, end, self.board):
             return False
         
+
+        oldWhiteKing = self.whiteKing
+        oldBlackKing = self.blackKing
         if isinstance(piece, King):
             if piece.getWhite(): self.whiteKing = tuple(end)
             else: self.blackKing = tuple(end)
@@ -99,8 +102,14 @@ class Board:
 
         check = self.checkCheck(newBoard)
         if check:
-            if white and check == "w": return False
-            if not white and check == "b": return False
+            if white and check == "w": 
+                self.whiteKing = oldWhiteKing
+                self.blackKing = oldBlackKing
+                return False
+            if not white and check == "b": 
+                self.whiteKing = oldWhiteKing
+                self.blackKing = oldBlackKing
+                return False
 
         # Moves the piece in backend representation of board
         self.board[end[0]][end[1]] = movedEnd
@@ -114,6 +123,9 @@ class Board:
                 if vertical == 0 and horizontal == 0: continue
                 if self.checkKing(self.whiteKing, True, vertical, horizontal, newBoard): return "w"
                 if self.checkKing(self.blackKing, False, vertical, horizontal, newBoard): return "b"
+
+        if self.checkKnight(self.whiteKing, True, newBoard): return "w"
+        if self.checkKnight(self.blackKing, False, newBoard): return "b"
 
         return ""
     
@@ -131,9 +143,28 @@ class Board:
                 continue
 
             if piece.canTake(white, vertical, horizontal, distance): 
-                current_app.logger.info(f"Check detected from position {row} {col}")
+                current_app.logger.info(f"Check by {type(piece)} detected from position {row} {col} to position {king}")
                 return True
             return False
+        
+    # Individual check for if a knight is attacking King. Has to be done because it does not follow the same rules as the other pieces
+    def checkKnight(self, king, white, newBoard):
+        for vertical in [-2, -1, 1, 2]:
+            for horizontal in [-2, -1, 1, 2]:
+                if abs(vertical) + abs(horizontal) != 3: continue
+               
+
+                row = king[0] + vertical
+                col = king[1] + horizontal
+                if row >= len(newBoard) or row < 0: continue
+                if col >= len(newBoard[row]) or col < 0: continue
+
+                piece = newBoard[row][col][1]
+                if isinstance(piece, Knight) and white != piece.getWhite():
+                    current_app.logger.info(f"Check by {type(piece)} detected from position {row} {col} to position {king}")
+                    return True
+        return False
+                
 
 
 if __name__ == "__main__":

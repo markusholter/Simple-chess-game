@@ -9,3 +9,8 @@ class King(Piece):
         if abs(start[0] - end[0]) > 1 or abs(start[1] - end[1]) > 1:
             return False
         return True
+    
+    def canTake(self, white, vertical, horizontal, distance):
+        if white == self.white: return False
+        if distance > 1: return False
+        return True

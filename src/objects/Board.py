@@ -110,6 +110,10 @@ class Board:
                 self.whiteKing = oldWhiteKing
                 self.blackKing = oldBlackKing
                 return False
+            if isinstance(piece, King):
+                self.whiteKing = oldWhiteKing
+                self.blackKing = oldBlackKing
+                return False
 
         # Moves the piece in backend representation of board
         self.board[end[0]][end[1]] = movedEnd

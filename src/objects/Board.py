@@ -1,4 +1,6 @@
 from flask import current_app
+from copy import deepcopy
+
 from objects.pieces.Piece import Piece
 from objects.pieces.Pawn import Pawn
 from objects.pieces.King import King
@@ -89,12 +91,47 @@ class Board:
             if piece.getWhite(): self.whiteKing = tuple(end)
             else: self.blackKing = tuple(end)
 
+        
+        movedStart = (self.board[start[0]][start[1]][0], None, self.board[start[0]][start[1]][2])
+        movedEnd = (self.board[end[0]][end[1]][0], piece, self.board[end[0]][end[1]][2])
+        newBoard = deepcopy(self.board)
+        newBoard[end[0]][end[1]] = movedEnd
+        newBoard[start[0]][start[1]] = movedStart
+
+
+        check = self.checkCheck(newBoard)
+        if check:
+            if white and check == "w": return False
+            if not white and check == "b": return False
+
         # Moves the piece in backend representation of board
-        self.board[end[0]][end[1]] = (self.board[end[0]][end[1]][0], piece, self.board[end[0]][end[1]][2])
-        self.board[start[0]][start[1]] = (self.board[start[0]][start[1]][0], None, self.board[start[0]][start[1]][2])
+        self.board[end[0]][end[1]] = movedEnd
+        self.board[start[0]][start[1]] = movedStart
         
         return True
 
+    def checkCheck(self, newBoard):
+        for vertical in [-1, 0, 1]:
+            for horizontal in [-1, 0, 1]:
+                if vertical == 0 and horizontal == 0: continue
+                if self.checkKing(self.whiteKing, True, vertical, horizontal, newBoard): return "w"
+                if self.checkKing(self.blackKing, False, vertical, horizontal, newBoard): return "b"
+
+        return ""
+    
+    def checkKing(self, king, white, vertical, horizontal, newBoard):
+        row = king[0] + vertical
+        col = king[1] + horizontal
+
+        while row < len(newBoard) and col < len(newBoard[row]):
+            piece: Piece = newBoard[row][col][1]
+            if not piece: 
+                row += vertical
+                col += horizontal
+                continue
+
+            if piece.canTake(white, vertical, horizontal): return True
+            return False
 
 
 if __name__ == "__main__":

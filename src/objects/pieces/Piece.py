@@ -6,8 +6,13 @@ class Piece:
     def getWhite(self): return self.white
     def getImage(self): return self.image
 
+    # Method to calculate if turn is possible. Must be implemented by children.
     def turn(self, start, end, board):
         return True
+    
+    # Method to calculate if this piece can take another piece with the given vertical and horizontal. Must be implemented by children
+    def canTake(self, white, vertical, horizontal):
+        return False
     
     """
     Checks if there are any pieces in the way of moving piece.

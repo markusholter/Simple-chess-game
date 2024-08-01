@@ -11,7 +11,7 @@ class Piece:
         return True
     
     # Method to calculate if this piece can take another piece with the given vertical and horizontal. Must be implemented by children
-    def canTake(self, white, vertical, horizontal):
+    def canTake(self, white, vertical, horizontal, distance):
         return False
     
     """

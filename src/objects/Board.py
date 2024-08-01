@@ -122,15 +122,17 @@ class Board:
     def checkKing(self, king, white, vertical, horizontal, newBoard):
         row = king[0] + vertical
         col = king[1] + horizontal
+        distance = 1
 
         while row < len(newBoard) and col < len(newBoard[row]):
             piece: Piece = newBoard[row][col][1]
             if not piece: 
                 row += vertical
                 col += horizontal
+                distance += 1
                 continue
 
-            if piece.canTake(white, vertical, horizontal): return True
+            if piece.canTake(white, vertical, horizontal, distance): return True
             return False
 
 

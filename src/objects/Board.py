@@ -16,6 +16,7 @@ class Board:
         self.cols: list[str] = ["A", "B", "C", "D", "E", "F", "G", "H"]
         self.whiteKing = (7, 4)
         self.blackKing = (0, 4)
+        self.check = ""
 
     # Make board top to bottom from the white players perspective
     def make_board(self):
@@ -99,14 +100,13 @@ class Board:
         newBoard[end[0]][end[1]] = movedEnd
         newBoard[start[0]][start[1]] = movedStart
 
-
-        check = self.checkCheck(newBoard)
-        if check:
-            if white and check == "w": 
+        self.check = self.checkCheck(newBoard)
+        if self.check:
+            if white and "w" in self.check: 
                 self.whiteKing = oldWhiteKing
                 self.blackKing = oldBlackKing
                 return False
-            if not white and check == "b": 
+            if not white and "b" in self.check: 
                 self.whiteKing = oldWhiteKing
                 self.blackKing = oldBlackKing
                 return False
@@ -120,18 +120,29 @@ class Board:
         self.board[start[0]][start[1]] = movedStart
         
         return True
+    
+    def checkMovable(self, white: bool, board: list[list[tuple[str, Piece, str]]]):
+        for row in board:
+            for cell in row:
+                piece = cell[1]
+                if not piece: continue
+                if white != piece.getWhite(): continue
+
+                if piece.canMove(): return True
+        return False
 
     def checkCheck(self, newBoard):
+        check = ""
         for vertical in [-1, 0, 1]:
             for horizontal in [-1, 0, 1]:
                 if vertical == 0 and horizontal == 0: continue
-                if self.checkKing(self.whiteKing, True, vertical, horizontal, newBoard): return "w"
-                if self.checkKing(self.blackKing, False, vertical, horizontal, newBoard): return "b"
+                if "w" not in check and self.checkKing(self.whiteKing, True, vertical, horizontal, newBoard): check += "w"
+                if "b" not in check and self.checkKing(self.blackKing, False, vertical, horizontal, newBoard): check += "b"
 
-        if self.checkKnight(self.whiteKing, True, newBoard): return "w"
-        if self.checkKnight(self.blackKing, False, newBoard): return "b"
+        if "w" not in check and self.checkKnight(self.whiteKing, True, newBoard): check += "w"
+        if "b" not in check and self.checkKnight(self.blackKing, False, newBoard): check += "b"
 
-        return ""
+        return check
     
     def checkKing(self, king, white, vertical, horizontal, newBoard):
         row = king[0] + vertical

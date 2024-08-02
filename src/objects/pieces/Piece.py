@@ -14,6 +14,10 @@ class Piece:
     def canTake(self, white, vertical, horizontal, distance):
         return False
     
+    # Method to check if the piece can move given the current board state, Must be implemented by children.
+    def canMove(self, board):
+        return True
+    
     """
     Checks if there are any pieces in the way of moving piece.
     Assumes that the move is possible with regards to direction and 

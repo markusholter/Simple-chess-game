@@ -8,6 +8,7 @@ class Room:
         self.waiting = True
         self.turn = player1
         self.not_turn = player2
+        self.done = ""
         self.board = Board.Board()
 
     def getRoomName(self): return self.roomName
@@ -17,6 +18,7 @@ class Room:
     def getBoard(self): return self.board
     def getTurn(self): return self.turn
     def getNotTurn(self): return self.not_turn
+    def getDone(self): return self.done
 
     def addPlayer2(self, player2):
         self.player2 = player2
@@ -29,4 +31,10 @@ class Room:
         self.not_turn = curr
 
     def checkTurn(self, move, username):
-        return self.board.turn(move, True if username == self.player1 else False)
+        white = True if username == self.player1 else False
+        successful = self.board.turn(move, white)
+
+        if successful: 
+            self.done = self.board.checkMateOrStale(not white)
+            
+        return successful

@@ -56,6 +56,12 @@ def turn(move):
         room.switchTurn()
         emit("you", move, to=room.getTurn())
         emit("opponent", move, to=room.getNotTurn())
+
+        done = room.getDone()
+        if done == "mate":
+            emit("alert", f"{username} won the game!", to=roomName)
+        if done == "stale":
+            emit("alert", "It's a stalemate!", to=roomName)
     else:
         app.logger.info("Turn not possible")
 

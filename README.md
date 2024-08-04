@@ -27,5 +27,5 @@ pip install flask flask-socketio
 ## Rules not implemented
 - Castling
 - Pawn can attack other pawn if moved two spaces
-- Any representation check mate or stale mate
+- Any representation stalemate
 - Transformation of pawn when reaching end of board

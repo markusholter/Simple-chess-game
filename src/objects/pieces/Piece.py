@@ -14,9 +14,6 @@ class Piece:
     def canTake(self, white, vertical, horizontal, distance):
         return False
     
-    # Method to check if the piece can move given the current board state, Must be implemented by children.
-    def canMove(self, board):
-        return True
     
     """
     Checks if there are any pieces in the way of moving piece.
@@ -36,3 +33,15 @@ class Piece:
             curr[1] += horizontal
 
         return True
+    
+    @staticmethod
+    def getVerticalHorizontal(start, end):
+        vertical = 0
+        horizontal = 0        
+        if start[0] < end[0]: vertical = 1
+        elif start[0] > end[0]: vertical = -1
+
+        if start[1] < end[1]: horizontal = 1
+        elif start[1] > end[1]: horizontal = -1
+
+        return vertical, horizontal

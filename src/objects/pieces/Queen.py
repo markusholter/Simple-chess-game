@@ -12,13 +12,7 @@ class Queen(Piece):
                 ):
             return False
         
-        vertical = 0
-        horizontal = 0        
-        if start[0] < end[0]: vertical = 1
-        elif start[0] > end[0]: vertical = -1
-
-        if start[1] < end[1]: horizontal = 1
-        elif start[1] > end[1]: horizontal = -1
+        vertical, horizontal = Piece.getVerticalHorizontal(start, end)
 
         return self.checkObstacle(start, end, board, vertical, horizontal)
     

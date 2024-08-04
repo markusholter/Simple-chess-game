@@ -78,7 +78,7 @@ class Board:
         if white != piece.getWhite():
             return False
         
-        # Make sure possible attacked piece is not of same colour
+        # Make sure possible attacked piece is not of same colour and that the piece has not been dropped on its original place
         endpiece = self.board[end[0]][end[1]][1]
         if endpiece and white == endpiece.getWhite():
             return False
@@ -87,7 +87,7 @@ class Board:
         if not piece.turn(start, end, self.board):
             return False
         
-
+        # Change position of kings saved in board so that it can be used in checkCheck()
         oldWhiteKing = self.whiteKing
         oldBlackKing = self.blackKing
         if isinstance(piece, King):
@@ -99,20 +99,17 @@ class Board:
         check = self.checkCheck(newBoard, log=fromUser)
         if fromUser: self.check = check
 
+        # See if move attempted puts the player in check and reset boards saved positions if that is the case
         if check:
-            if white and "w" in check: 
-                self.whiteKing = oldWhiteKing
-                self.blackKing = oldBlackKing
-                return False
-            if not white and "b" in check: 
-                self.whiteKing = oldWhiteKing
-                self.blackKing = oldBlackKing
-                return False
-            if isinstance(piece, King):
+            if ((white and "w" in check) or
+                    (not white and "b" in check) or
+                    isinstance(piece, King)):
+                
                 self.whiteKing = oldWhiteKing
                 self.blackKing = oldBlackKing
                 return False
             
+        # Reset boards saved position of kings if the function was not called from user
         if not fromUser and isinstance(piece, King):
             self.whiteKing = oldWhiteKing
             self.blackKing = oldBlackKing
@@ -180,13 +177,7 @@ class Board:
             blocks.append(list(start))
             return blocks
 
-        vertical = 0
-        horizontal = 0
-        if start[0] < end[0]: vertical = 1
-        elif start[0] > end[0]: vertical = -1
-
-        if start[1] < end[1]: horizontal = 1
-        elif start[1] > end[1]: horizontal = -1
+        vertical, horizontal = Piece.getVerticalHorizontal(start, end)
 
         while start != end:
             blocks.append(list(start))

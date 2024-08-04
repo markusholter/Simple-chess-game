@@ -62,7 +62,7 @@ class Board:
         return self.rows[::-1], self.cols[::-1], [x[::-1] for x in self.board][::-1]
     
     def turn(self, move: str, white: bool, fromUser=True):
-        current_app.logger.info(f"Attempted move: {move}")
+        if fromUser: current_app.logger.info(f"Attempted move: {move}")
         """
         "Move" is a string in this format: "i j,i j"
         "i" is the row of the cell, and "j" is the col of the cell.
@@ -96,13 +96,15 @@ class Board:
 
         newBoard = self.makeNewBoard(start, end, piece)
 
-        self.check = self.checkCheck(newBoard)
-        if self.check:
-            if white and "w" in self.check: 
+        check = self.checkCheck(newBoard, log=fromUser)
+        if fromUser: self.check = check
+
+        if check:
+            if white and "w" in check: 
                 self.whiteKing = oldWhiteKing
                 self.blackKing = oldBlackKing
                 return False
-            if not white and "b" in self.check: 
+            if not white and "b" in check: 
                 self.whiteKing = oldWhiteKing
                 self.blackKing = oldBlackKing
                 return False
@@ -110,6 +112,10 @@ class Board:
                 self.whiteKing = oldWhiteKing
                 self.blackKing = oldBlackKing
                 return False
+            
+        if not fromUser and isinstance(piece, King):
+            self.whiteKing = oldWhiteKing
+            self.blackKing = oldBlackKing
 
         # Moves the piece in backend representation of board
         if fromUser: self.board = newBoard
@@ -131,6 +137,7 @@ class Board:
             return "mate"
         return ""
     
+    # Check if player is in checkmate
     def checkMate(self, white: bool):
         if not self.check: return False
         colour = "w" if white else "b"
@@ -139,25 +146,31 @@ class Board:
             possibleBlocks = self.possibleBlocks(white, colour)
             current_app.logger.info(f"Possible blocks: {possibleBlocks}")
 
+        # Go through board to try and move pieces
         for i, row in enumerate(self.board):
             for j, cell in enumerate(row):
                 piece = cell[1]
                 if not piece: continue
                 if white != piece.getWhite(): continue
+
+                # If piece is not king, check if piece can block
                 if blockable and not isinstance(piece, King):
                     for pos in possibleBlocks:
                         if piece.turn([i, j], pos, self.board):
                             current_app.logger.info(f"{piece} at position {i, j} can block at position {pos}")
                             return False
                         
+                # If piece is the king, try to move it and see if it still is in check
                 if isinstance(piece, King):
                     possibleMoves = [[i + x, j + y] for x in [-1, 0, 1] for y in [-1, 0, 1] if not (x == 0 and y == 0) and i + x >= 0 and j + y >= 0]
                     for pos in possibleMoves:
                         if self.turn(f"{i} {j},{pos[0]} {pos[1]}", white, False):
+                            current_app.logger.info(f"{piece} can move from position {i, j} to position {pos} to escape check")
                             return False
 
         return True
     
+    # Get all cells in board a piece can move to to block the current check
     def possibleBlocks(self, white, colour):
         blocks = []
         start = next(iter(self.check[colour]))
@@ -181,9 +194,11 @@ class Board:
 
         return blocks
             
-
+    # Check if any of the players are in check, and if so, the position of the piece attacking.
     def checkCheck(self, newBoard, log=True):
         check = defaultdict(set)
+
+        # Go through all directions the king can be attacked from
         for vertical in [-1, 0, 1]:
             for horizontal in [-1, 0, 1]:
                 if vertical == 0 and horizontal == 0: continue
@@ -193,6 +208,7 @@ class Board:
                 if whiteCheck: check["w"].add(whiteCheck)
                 if blackCheck: check["b"].add(blackCheck)
 
+        # Check knight outside of loop since it does not come from a specific direction
         whiteKnight = self.checkKnight(self.whiteKing, True, newBoard, log)
         blackKnight = self.checkKnight(self.blackKing, False, newBoard, log)
         if whiteKnight: check["w"].add(whiteKnight)
@@ -200,6 +216,7 @@ class Board:
 
         return check
     
+    # Check if specific king is attacked from specific direction. 
     def checkKing(self, king, white, vertical, horizontal, newBoard, log):
         row = king[0] + vertical
         col = king[1] + horizontal

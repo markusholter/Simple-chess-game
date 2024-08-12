@@ -132,7 +132,30 @@ class Board:
     def checkMateOrStale(self, white):
         if self.checkMate(white):
             return "mate"
+        if self.checkStale(white):
+            return "stale"
         return ""
+    
+    # Check if player is in stalemate
+    def checkStale(self, white):
+        if self.check: return False
+        possibleMoves = [(x, y) for x in [-1, 0, 1] for y in [-1, 0, 1] if x != 0 and y != 0]
+        possibleMoves.extend([(x, y) for x in [-2, -1, 1, 2] for y in [-2, -1, 1, 2] if abs(x + y) == 3])
+        
+        for i, row in enumerate(self.board):
+            for j, cell in enumerate(row):
+                for x, y in possibleMoves:
+                    end = [i + x, j + y]
+                    if end[0] < 0 or end[1] < 0 or end[0] >= len(self.board) or end[1] >= len(row):
+                        continue
+
+                    piece = cell[1]
+                    if piece == None: continue
+                    if self.turn(f"{i} {j},{end[0]} {end[1]}", white, False):
+                        current_app.logger.info(f"{piece} Can move from {i} {j} to {end}")
+                        return False 
+
+        return True
     
     # Check if player is in checkmate
     def checkMate(self, white: bool):
@@ -159,6 +182,7 @@ class Board:
                         
                 # If piece is the king, try to move it and see if it still is in check
                 if isinstance(piece, King):
+                    #TODO I should need checks for when the end is too large
                     possibleMoves = [[i + x, j + y] for x in [-1, 0, 1] for y in [-1, 0, 1] if not (x == 0 and y == 0) and i + x >= 0 and j + y >= 0]
                     for pos in possibleMoves:
                         if self.turn(f"{i} {j},{pos[0]} {pos[1]}", white, False):

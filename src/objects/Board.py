@@ -182,8 +182,8 @@ class Board:
                         
                 # If piece is the king, try to move it and see if it still is in check
                 if isinstance(piece, King):
-                    #TODO I should need checks for when the end is too large
-                    possibleMoves = [[i + x, j + y] for x in [-1, 0, 1] for y in [-1, 0, 1] if not (x == 0 and y == 0) and i + x >= 0 and j + y >= 0]
+                    possibleMoves = [[i + x, j + y] for x in [-1, 0, 1] for y in [-1, 0, 1] 
+                                        if not (x == 0 and y == 0) and i + x >= 0 and j + y >= 0 and i + x < len(self.board) and j + y < len(row)]
                     for pos in possibleMoves:
                         if self.turn(f"{i} {j},{pos[0]} {pos[1]}", white, False):
                             current_app.logger.info(f"{piece} can move from position {i, j} to position {pos} to escape check")

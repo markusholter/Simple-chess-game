@@ -51,11 +51,13 @@ def turn(move):
     username = session.get("userId")
     roomName = session.get("roomName")
     room = rooms[roomName]
-    if room.checkTurn(move, username):
+    moves = room.checkTurn(move, username)
+    if moves:
         app.logger.info("Turn possible, switching whose turn it is")
         room.switchTurn()
-        emit("you", move, to=room.getTurn())
-        emit("opponent", move, to=room.getNotTurn())
+        for x in moves:
+            emit("you", x, to=room.getTurn())
+            emit("opponent", x, to=room.getNotTurn())
 
         done = room.getDone()
         if done == "mate":

@@ -117,7 +117,7 @@ class Board:
         # Moves the piece in backend representation of board
         if fromUser: self.board = newBoard
         
-        return True
+        return [move]
     
     def makeNewBoard(self, start, end, piece):
         movedStart = (self.board[start[0]][start[1]][0], None, self.board[start[0]][start[1]][2])

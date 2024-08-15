@@ -1,18 +1,25 @@
 <!DOCTYPE html>
 <html>
+    <head>
+        <link rel="stylesheet" href="{{ url_for('static', filename='start/style.css') }}">
+    </head>
     <body>
-        <h1>Title</h1>
+        <div class="container">
+            <h1>Chess</h1>
 
-        {% for message in get_flashed_messages() %}
-            <div class="flash">{{ message }}</div>
-        {% endfor %}
-        
-        <form method="post">
-            <label for="username">Screen name: </label>
-            <input name="username">
-            <label for="room">Room ID: </label>
-            <input name="room">
-            <input type="submit">
-        </form>
+            {% for message in get_flashed_messages() %}
+                <div class="flash">{{ message }}</div>
+            {% endfor %}
+            
+            <form method="post">
+                <label for="username">Screen name:</label>
+                <input type="text" name="username" id="username">
+                
+                <label for="room">Room ID:</label>
+                <input type="text" name="room" id="room">
+                
+                <input type="submit" value="Submit">
+            </form>
+        </div>
     </body>
 </html>

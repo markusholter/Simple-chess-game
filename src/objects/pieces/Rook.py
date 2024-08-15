@@ -3,6 +3,10 @@ from ..pieces.Piece import Piece
 class Rook(Piece):
     def __init__(self, white: bool, image: str) -> None:
         super().__init__(white, image)
+        self.castle = True
+
+    def canCastle(self): return self.castle
+    def removeCastle(self): self.castle = False
 
     def turn(self, start, end, board):
 
@@ -16,7 +20,11 @@ class Rook(Piece):
         
         vertical, horizontal = Piece.getVerticalHorizontal(start, end)
 
-        return self.checkObstacle(start, end, board, vertical, horizontal)
+        if not self.checkObstacle(start, end, board, vertical, horizontal):
+            return False
+        
+        self.removeCastle()
+        return True
     
     def canTake(self, white, vertical, horizontal, distance):
         if white == self.white: return False

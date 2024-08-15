@@ -1,6 +1,7 @@
 from flask import current_app
 from copy import deepcopy
 from collections import defaultdict
+from statistics import median
 
 from objects.pieces.Piece import Piece
 from objects.pieces.Pawn import Pawn
@@ -68,6 +69,8 @@ class Board:
         "i" is the row of the cell, and "j" is the col of the cell.
         A move has been attempted from "i j" in front of the comma to "i j" after the comma. 
         """
+        castle = False
+        moves = [move]
 
         start = [int(x) for x in move.split(",")[0].split(" ")]
         end = [int(x) for x in move.split(",")[1].split(" ")]
@@ -94,7 +97,24 @@ class Board:
             if piece.getWhite(): self.whiteKing = tuple(end)
             else: self.blackKing = tuple(end)
 
-        newBoard = self.makeNewBoard(start, end, piece)
+        newBoard = self.makeNewBoard(start, end, piece, self.board)
+
+        # Checking if a castle has been tried, and if it in that case is legal
+        if isinstance(piece, King):
+            newRookPosition = f"{end[0]} {int(median((end[1], start[1])))}"
+            checkWhileMoving = self.turn(f"{start[0]} {start[1]},{newRookPosition}", white, False)
+            castle = abs(end[1] - start[1]) == 2 and checkWhileMoving
+            if castle: 
+                row = 0 if end[1] - start[1] < 0 else len(self.board[0]) - 1
+                oldRookPosition = f"{end[0]} {row}"
+                moves.append(f"{oldRookPosition},{newRookPosition}")
+                
+                rookStart = [int(x) for x in oldRookPosition.split(" ")]
+                rookEnd = [int(x) for x in newRookPosition.split(" ")]
+                rook = self.board[rookStart[0]][rookStart[1]][1]
+                newBoard = self.makeNewBoard(rookStart, rookEnd, rook, newBoard)
+            elif not checkWhileMoving:
+                return False
 
         check = self.checkCheck(newBoard, log=fromUser)
         if fromUser: self.check = check
@@ -113,16 +133,28 @@ class Board:
         if not fromUser and isinstance(piece, King):
             self.whiteKing = oldWhiteKing
             self.blackKing = oldBlackKing
-
-        # Moves the piece in backend representation of board
-        if fromUser: self.board = newBoard
+           
         
-        return [move]
+        if fromUser: 
+            # Moves the piece in backend representation of board
+            self.board = newBoard
+
+            # Removes the possibility to castle for next time
+            if castle:
+                current_app.logger.info("Going through king and rook")
+                for castleMove in moves:
+                    position = [int(x) for x in castleMove.split(",")[1].split(" ")]
+                    castlingPiece = self.board[position[0]][position[1]][1]
+                    current_app.logger.info(f"Removing castle for {castleMove}")
+                    if isinstance(castlingPiece, (Rook, King)): 
+                        castlingPiece.removeCastle()
+            
+        return moves
     
-    def makeNewBoard(self, start, end, piece):
-        movedStart = (self.board[start[0]][start[1]][0], None, self.board[start[0]][start[1]][2])
-        movedEnd = (self.board[end[0]][end[1]][0], piece, self.board[end[0]][end[1]][2])
-        newBoard = deepcopy(self.board)
+    def makeNewBoard(self, start, end, piece, board):
+        movedStart = (board[start[0]][start[1]][0], None, board[start[0]][start[1]][2])
+        movedEnd = (board[end[0]][end[1]][0], piece, board[end[0]][end[1]][2])
+        newBoard = deepcopy(board)
         newBoard[end[0]][end[1]] = movedEnd
         newBoard[start[0]][start[1]] = movedStart
 

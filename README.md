@@ -25,6 +25,5 @@ pip install flask flask-socketio
 - Reloading in game removes board and backend room
 
 ## Rules not implemented
-- Castling
 - Pawn can attack other pawn if moved two spaces
 - Transformation of pawn when reaching end of board

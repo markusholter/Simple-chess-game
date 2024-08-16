@@ -100,10 +100,9 @@ class Board:
         newBoard = self.makeNewBoard(start, end, piece, self.board)
 
         # Checking if a castle has been tried, and if it in that case is legal
-        if isinstance(piece, King):
+        if isinstance(piece, King) and abs(end[1] - start[1]) == 2:
             newRookPosition = f"{end[0]} {int(median((end[1], start[1])))}"
-            checkWhileMoving = self.turn(f"{start[0]} {start[1]},{newRookPosition}", white, False)
-            castle = abs(end[1] - start[1]) == 2 and checkWhileMoving
+            castle = self.turn(f"{start[0]} {start[1]},{newRookPosition}", white, False)
             if castle: 
                 row = 0 if end[1] - start[1] < 0 else len(self.board[0]) - 1
                 oldRookPosition = f"{end[0]} {row}"
@@ -113,11 +112,10 @@ class Board:
                 rookEnd = [int(x) for x in newRookPosition.split(" ")]
                 rook = self.board[rookStart[0]][rookStart[1]][1]
                 newBoard = self.makeNewBoard(rookStart, rookEnd, rook, newBoard)
-            elif not checkWhileMoving:
+            else:
                 return False
 
         check = self.checkCheck(newBoard, log=fromUser)
-        if fromUser: self.check = check
 
         # See if move attempted puts the player in check and reset boards saved positions if that is the case
         if check:
@@ -135,7 +133,9 @@ class Board:
             self.blackKing = oldBlackKing
            
         
-        if fromUser: 
+        if fromUser:
+            self.check = check 
+            
             # Moves the piece in backend representation of board
             self.board = newBoard
 

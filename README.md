@@ -38,3 +38,4 @@ pytest
 - Add functionality so pawn can attack other pawn if moved two spaces
 - Add functionality so pawn can transform when reaching end of board
 - Add tests for more than the piece.turn method
+    - Maybe a whole test game?

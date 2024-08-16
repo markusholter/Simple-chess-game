@@ -1,6 +1,8 @@
 from objects.Board import Board
 from objects.pieces.Queen import Queen
 
+# Using GPT to generate test cases
+
 def test_queen_horizontal_move():
     board = Board()
     # Place the queen at (4, 4) for a clear horizontal move

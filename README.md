@@ -15,12 +15,12 @@ You can try the Simple Chess Game by visiting the following ip-address:
 
 ## Features
 - **Online chess game using connection code:** Play chess with friends online by sharing a unique connection code.
-- **Real-time game updates via WebSockets:** Enjoy smooth, real-time gameplay with WebSocket technology.
+- **Real-time game updates via WebSockets:** Smooth, real-time gameplay with WebSocket technology.
 - **Legal moves enforcement:** Backend logic ensures that only legal chess moves are allowed.
 - **Dockerized for easy deployment:** Deploy the application easily on any platform with Docker.
 - **Planned enhancements:** Upcoming features include stalemate detection, en passant moves, and pawn promotion.
 - **Multiplayer support:** Connect and play with friends from anywhere over the internet.
-- **Responsive design:** Enjoy seamless gameplay on any device with a responsive chessboard that adapts to different screen sizes.
+- **Responsive design:** Seamless gameplay on any device with a responsive chessboard that adapts to different screen sizes.
 
 ## How to run production server through docker on localhost
 1. Ensure docker is installed on your system
@@ -79,4 +79,4 @@ This project uses chess piece images from the Green Chess project. The images ar
 Some images are created by others and some by the Green Chess author. You are free to copy, redistribute, and modify these images as long as you attribute the original author and share any derived work under the same license.
 
 - Chess Piece Images Source: [Green Chess](https://greenchess.net/info.php?item=downloads)
-- License: [Creative Commons Attribution-ShareAlike 3.0 International License](https://creativecommons.org/licenses/by-sa/3.0/deed.en)
+- License: [Creative Commons Attribution-ShareAlike 3.0 License](https://creativecommons.org/licenses/by-sa/3.0/deed.en)

@@ -10,6 +10,6 @@ RUN pip install --no-cache-dir flask flask-socketio gevent uwsgi
 
 COPY . .
 
-EXPOSE 8000
+EXPOSE 80
 
 CMD ["uwsgi", "--ini", "app.ini"]

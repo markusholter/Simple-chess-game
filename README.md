@@ -2,7 +2,7 @@
 Currently got pictures of chess pieces from this site:
 https://greenchess.net/info.php?item=downloads
 
-## How to run production server through docker
+## How to run production server through docker on localhost
 - Make sure docker is installed
 - Make sure you are in "Simple-chess-game" directory
 - Build docker image:
@@ -11,9 +11,9 @@ sudo docker build -t chess .
 ```
 - Run docker image:
 ```
-sudo docker run -p 8000:8000 -t chess
+sudo docker run -p 8000:80 -t chess
 ```
-- You can now visit 127.0.0.1:8000 in your browser to see the site. You can also visit the site from another computer if your are running the docker image on a server.
+- You can now visit 127.0.0.1:8000 in your browser to see the site.
 
 ## How to run development server
 - Make sure python3.10.12 or later is installed, as well as python-venv.

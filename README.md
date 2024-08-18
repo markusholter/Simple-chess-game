@@ -18,7 +18,6 @@ You can try the Simple Chess Game by visiting the following ip-address:
 - **Real-time game updates via WebSockets:** Smooth, real-time gameplay with WebSocket technology.
 - **Legal moves enforcement:** Backend logic ensures that only legal chess moves are allowed.
 - **Dockerized for easy deployment:** Deploy the application easily on any platform with Docker.
-- **Planned enhancements:** Upcoming features include stalemate detection, en passant moves, and pawn promotion.
 - **Multiplayer support:** Connect and play with friends from anywhere over the internet.
 - **Responsive design:** Seamless gameplay on any device with a responsive chessboard that adapts to different screen sizes.
 

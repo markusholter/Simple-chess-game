@@ -7,7 +7,7 @@ https://greenchess.net/info.php?item=downloads
 - Make sure you are in "Simple-chess-game" directory
 - Build docker image:
 ```
-sudo docker build -t chess
+sudo docker build -t chess .
 ```
 - Run docker image:
 ```

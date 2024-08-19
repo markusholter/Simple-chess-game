@@ -5,3 +5,4 @@
 - Add funtionality so game ends in stalemate when same moves is repeated 3 times
 - Add tests for more than the piece.turn method
     - Maybe a whole test game?
+- Add last done move

@@ -33,7 +33,7 @@ h3{
     grid-template-rows: repeat(8, 12.5%);
     justify-content: center;
     height: var(--cell-size);
-    
+    margin-bottom: 10vmin;
 }
 
 .row-label {

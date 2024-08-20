@@ -98,6 +98,9 @@ class Board:
             else: self.blackKing = tuple(end)
 
         newBoard = self.makeNewBoard(start, end, piece, self.board)
+        if isinstance(piece, Pawn) and piece.getEnpassant():
+            newBoard[start[0]][end[1]] = (newBoard[start[0]][end[1]][0], None, newBoard[start[0]][end[1]][2])
+            moves = list(map(lambda x: x.replace(move, "enpassant," + move), moves))
 
         # Checking if a castle has been tried, and if it in that case is legal
         if isinstance(piece, King) and abs(end[1] - start[1]) == 2:
@@ -148,6 +151,12 @@ class Board:
                     current_app.logger.info(f"Removing castle for {castleMove}")
                     if isinstance(castlingPiece, (Rook, King)): 
                         castlingPiece.removeCastle()
+
+            if isinstance(piece, Pawn) and piece.getEnpassant(): piece.removeEnpassent()
+            for row in self.board:
+                for cell in row:
+                    possiblePawn = cell[1]
+                    if isinstance(possiblePawn, Pawn) and possiblePawn != piece: possiblePawn.removeDoubleMove()
             
         return moves
     

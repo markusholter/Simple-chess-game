@@ -1,6 +1,5 @@
 - Fix row-numbers in style.css is adjusted with margin-bottom to account for screen name beneath chessboard.
 - Fix reloading in game removes board and backend room
-- Add functionality so pawn can attack other pawn if moved two spaces
 - Add functionality so pawn can transform when reaching end of board
 - Add funtionality so game ends in stalemate when same moves is repeated 3 times
 - Add tests for more than the piece.turn method

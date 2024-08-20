@@ -5,7 +5,6 @@ This application is built with Python, utilizing Flask for handling HTTP request
 
 Not all chess rules are fully implemented yet, but future updates are planned to address them. The key rules still to be added include:
 - Stalemate after threefold repetition
-- En passant (capturing a pawn that moves two squares forward)
 - Pawn promotion (transforming a pawn upon reaching the opponent's back rank)
 
 ## Try it out

@@ -18,8 +18,14 @@ function doTurn(mine, move) {
     document.getElementById("status").innerHTML = (turn) ? "Your turn" : "Opponents turn"
     if (!move) return
 
-    start = move.split(",")[0]
-    end = move.split(",")[1]
+    if (move.includes("enpassant")) {
+        start = move.split(",")[1]
+        end = move.split(",")[2]
+        removeAttackedPassant(start, end)
+    } else {
+        start = move.split(",")[0]
+        end = move.split(",")[1]
+    }
 
     var currentImage = document.getElementById(start).querySelector("img")
     var attackedImage = document.getElementById(end).querySelector("img")
@@ -37,6 +43,14 @@ socket.on("alert", function(text) {
     alert(text)
     window.location.href = "/"
 })
+
+function removeAttackedPassant(start, end) {
+    var y = start.split(" ")[0]
+    var x = end.split(" ")[1]
+    var pos = y + " " + x
+    attackedImage = document.getElementById(pos).querySelector("img")
+    document.getElementById(pos).removeChild(attackedImage)
+}
 
 function drag(event) {
     var currentImage = event.target

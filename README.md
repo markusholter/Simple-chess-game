@@ -8,6 +8,14 @@ Not all chess rules are fully implemented yet, but future updates are planned to
 - Pawn promotion (transforming a pawn upon reaching the opponent's back rank)
 
 ## Try it out
+To play this game you can follow these steps:
+1. Open the website.
+2. Enter a screen name.
+3. Enter a new room ID to create a game, or join an existing game by entering the room ID someone else has    provided.
+4. Click "Submit."
+
+If you created a new room, share the room ID with another person so they can join. Alternatively, you can open a private browser window to test it yourself. Once both players have joined, the game will begin, and you can take turns dragging the pieces to play chess!
+
 You can try the Simple Chess Game by visiting the following ip-address:
 
 [http://172.232.132.6](http://172.232.132.6)

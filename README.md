@@ -9,16 +9,14 @@ Not all chess rules are fully implemented yet, but future updates are planned to
 
 ## Try it out
 To play this game you can follow these steps:
-1. Open the website.
+1. Open the website (How to run the server locally is described below).
 2. Enter a screen name.
-3. Enter a new room ID to create a game, or join an existing game by entering the room ID someone else has    provided.
-4. Click "Submit."
+3. Enter a new room ID to create a game
+4. Open a private window nad open the same sat. Join the existing game by entering the same room ID.
+5. Click "Submit."
 
-If you created a new room, share the room ID with another person so they can join. Alternatively, you can open a private browser window to test it yourself. Once both players have joined, the game will begin, and you can take turns dragging the pieces to play chess!
+Now the game has started, and you can play a chess game between the windows. If the server is run at a machine where the ports are open, two players can join the same game given the same link an the same room ID.
 
-You can try the Simple Chess Game by visiting the following ip-address:
-
-[http://172.232.132.6](http://172.232.132.6)
 
 ## Features
 - **Online chess game using connection code:** Play chess with friends online by sharing a unique connection code.

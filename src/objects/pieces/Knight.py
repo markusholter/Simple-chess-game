@@ -7,6 +7,8 @@ class Knight(Piece):
     def turn(self, start, end, board):
         diffx = abs(end[0] - start[0])
         diffy = abs(end[1] - start[1])
+        
+        if diffx == 0 or diffy == 0: return False
 
         return diffx + diffy == 3
     

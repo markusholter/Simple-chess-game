@@ -1,4 +1,4 @@
-# Simple chess game
+# Simple Chess Game
 **Simple Chess Game** is a web application that allows users to play chess against each other online. Players can connect using a unique code and choose a screen name to identify themselves during gameplay.
 
 This application is built with Python, utilizing Flask for handling HTTP requests and Flask-SocketIO for managing real-time game turns. The entire application is containerized with Docker, ensuring a smooth and consistent deployment on the server.
@@ -28,7 +28,7 @@ Now the game has started, and you can play a chess game between the windows. If 
 ## How to run production server through docker on localhost
 1. Ensure docker is installed on your system
 2. Verify that you have sufficient RAM/swap memory (8GB should suffice)
-3. Navigate to the "Simple-chess-game" directory
+3. Navigate to the "simple-chess-game" directory
 4. Build docker image:
 ```
 sudo docker build -t chess .
@@ -44,13 +44,13 @@ sudo docker run -p 8000:80 -t chess
 2. Clone the repository
 3. Create virtual environment with venv:
 ```
-$ cd Simple-chess-game
+$ cd simple-chess-game
 $ python3 -m venv .venv
 ```
 
 4. Modify the "activate" file inside ".venv/bin/" by adding the path to the "src" folder at the end:
 ``` 
-export PYTHONPATH=/home/user/Simple-chess-game/src 
+export PYTHONPATH=/home/user/simple-chess-game/src 
 ```
 
 5. Initialize the virtual environment:

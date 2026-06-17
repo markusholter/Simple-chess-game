@@ -1,4 +1,5 @@
-from ..pieces.Piece import Piece
+from chess_game.objects.pieces.Piece import Piece
+
 
 class Knight(Piece):
     def __init__(self, white: bool, image: str) -> None:
@@ -7,11 +8,13 @@ class Knight(Piece):
     def turn(self, start, end, board):
         diffx = abs(end[0] - start[0])
         diffy = abs(end[1] - start[1])
-        
-        if diffx == 0 or diffy == 0: return False
+
+        if diffx == 0 or diffy == 0:
+            return False
 
         return diffx + diffy == 3
-    
+
     # Returns False because this method do not have the correct information to decide for the knight.
     def canTake(self, white, vertical, horizontal, distance):
         return False
+

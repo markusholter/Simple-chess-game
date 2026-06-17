@@ -1,7 +1,8 @@
-from objects.Board import Board
-from objects.pieces.King import King
+from chess_game.objects.Board import Board
+from chess_game.objects.pieces.King import King
 
 # Using GPT to generate test cases
+
 
 def test_king_horizontal_move():
     board = Board()
@@ -10,7 +11,10 @@ def test_king_horizontal_move():
     king = board.get_white_board()[2][4][4][1]
     start = [4, 4]
     end = [4, 5]
-    assert king.turn(start, end, board.get_white_board()[2]), "King should move one square horizontally."
+    assert king.turn(start, end, board.get_white_board()[2]), (
+        "King should move one square horizontally."
+    )
+
 
 def test_king_vertical_move():
     board = Board()
@@ -19,7 +23,10 @@ def test_king_vertical_move():
     king = board.get_white_board()[2][4][4][1]
     start = [4, 4]
     end = [3, 4]
-    assert king.turn(start, end, board.get_white_board()[2]), "King should move one square vertically."
+    assert king.turn(start, end, board.get_white_board()[2]), (
+        "King should move one square vertically."
+    )
+
 
 def test_king_diagonal_move():
     board = Board()
@@ -28,7 +35,10 @@ def test_king_diagonal_move():
     king = board.get_white_board()[2][4][4][1]
     start = [4, 4]
     end = [3, 3]
-    assert king.turn(start, end, board.get_white_board()[2]), "King should move one square diagonally."
+    assert king.turn(start, end, board.get_white_board()[2]), (
+        "King should move one square diagonally."
+    )
+
 
 def test_king_invalid_move():
     board = Board()
@@ -37,7 +47,10 @@ def test_king_invalid_move():
     king = board.get_white_board()[2][4][4][1]
     start = [4, 4]
     end = [4, 6]  # Invalid move for a king (moving more than one square)
-    assert not king.turn(start, end, board.get_white_board()[2]), "King should not move more than one square."
+    assert not king.turn(start, end, board.get_white_board()[2]), (
+        "King should not move more than one square."
+    )
+
 
 def test_king_move_backwards_horizontally():
     board = Board()
@@ -46,7 +59,10 @@ def test_king_move_backwards_horizontally():
     king = board.get_white_board()[2][4][4][1]
     start = [4, 4]
     end = [4, 3]
-    assert king.turn(start, end, board.get_white_board()[2]), "King should be able to move one square backward horizontally."
+    assert king.turn(start, end, board.get_white_board()[2]), (
+        "King should be able to move one square backward horizontally."
+    )
+
 
 def test_king_move_backwards_vertically():
     board = Board()
@@ -55,7 +71,10 @@ def test_king_move_backwards_vertically():
     king = board.get_white_board()[2][4][4][1]
     start = [4, 4]
     end = [5, 4]
-    assert king.turn(start, end, board.get_white_board()[2]), "King should be able to move one square backward vertically."
+    assert king.turn(start, end, board.get_white_board()[2]), (
+        "King should be able to move one square backward vertically."
+    )
+
 
 def test_king_move_backwards_diagonally():
     board = Board()
@@ -64,4 +83,6 @@ def test_king_move_backwards_diagonally():
     king = board.get_white_board()[2][4][4][1]
     start = [4, 4]
     end = [5, 5]
-    assert king.turn(start, end, board.get_white_board()[2]), "King should be able to move one square backward diagonally."
+    assert king.turn(start, end, board.get_white_board()[2]), (
+        "King should be able to move one square backward diagonally."
+    )

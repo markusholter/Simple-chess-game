@@ -1,4 +1,5 @@
-from . import Board
+from chess_game.objects import Board
+
 
 class Room:
     def __init__(self, roomName: str, player1: str, player2: str | None = None) -> None:
@@ -11,14 +12,29 @@ class Room:
         self.done = ""
         self.board = Board.Board()
 
-    def getRoomName(self): return self.roomName
-    def getPlayer1(self): return self.player1
-    def getPlayer2(self): return self.player2
-    def getWaiting(self): return self.waiting
-    def getBoard(self): return self.board
-    def getTurn(self): return self.turn
-    def getNotTurn(self): return self.not_turn
-    def getDone(self): return self.done
+    def getRoomName(self):
+        return self.roomName
+
+    def getPlayer1(self):
+        return self.player1
+
+    def getPlayer2(self):
+        return self.player2
+
+    def getWaiting(self):
+        return self.waiting
+
+    def getBoard(self):
+        return self.board
+
+    def getTurn(self):
+        return self.turn
+
+    def getNotTurn(self):
+        return self.not_turn
+
+    def getDone(self):
+        return self.done
 
     def addPlayer2(self, player2):
         self.player2 = player2
@@ -34,7 +50,8 @@ class Room:
         white = True if username == self.player1 else False
         successful = self.board.turn(move, white)
 
-        if successful: 
+        if successful:
             self.done = self.board.checkMateOrStale(not white)
-            
+
         return successful
+

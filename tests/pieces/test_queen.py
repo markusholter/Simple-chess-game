@@ -1,7 +1,8 @@
-from objects.Board import Board
-from objects.pieces.Queen import Queen
+from chess_game.objects.Board import Board
+from chess_game.objects.pieces.Queen import Queen
 
 # Using GPT to generate test cases
+
 
 def test_queen_horizontal_move():
     board = Board()
@@ -10,7 +11,10 @@ def test_queen_horizontal_move():
     queen = board.get_white_board()[2][4][4][1]
     start = [4, 4]
     end = [4, 7]
-    assert queen.turn(start, end, board.get_white_board()[2]), "Queen should move horizontally."
+    assert queen.turn(start, end, board.get_white_board()[2]), (
+        "Queen should move horizontally."
+    )
+
 
 def test_queen_vertical_move():
     board = Board()
@@ -19,7 +23,10 @@ def test_queen_vertical_move():
     queen = board.get_white_board()[2][4][4][1]
     start = [4, 4]
     end = [1, 4]
-    assert queen.turn(start, end, board.get_white_board()[2]), "Queen should move vertically."
+    assert queen.turn(start, end, board.get_white_board()[2]), (
+        "Queen should move vertically."
+    )
+
 
 def test_queen_diagonal_move():
     board = Board()
@@ -28,7 +35,10 @@ def test_queen_diagonal_move():
     queen = board.get_white_board()[2][4][4][1]
     start = [4, 4]
     end = [2, 2]
-    assert queen.turn(start, end, board.get_white_board()[2]), "Queen should move diagonally."
+    assert queen.turn(start, end, board.get_white_board()[2]), (
+        "Queen should move diagonally."
+    )
+
 
 def test_queen_invalid_move():
     board = Board()
@@ -37,15 +47,23 @@ def test_queen_invalid_move():
     queen = board.get_white_board()[2][4][4][1]
     start = [4, 4]
     end = [6, 5]  # Invalid move for a queen (moving like a knight)
-    assert not queen.turn(start, end, board.get_white_board()[2]), "Queen should not move like a knight."
+    assert not queen.turn(start, end, board.get_white_board()[2]), (
+        "Queen should not move like a knight."
+    )
+
 
 def test_queen_move_with_obstacle_in_path():
     board = Board()
-    queen = board.get_white_board()[2][7][3][1]  # White queen at initial position (7, 3)
+    queen = board.get_white_board()[2][7][3][
+        1
+    ]  # White queen at initial position (7, 3)
     start = [7, 3]
     end = [4, 3]
     # Pawns are already in the way from the initial board setup
-    assert not queen.turn(start, end, board.get_white_board()[2]), "Queen should not move through other pieces."
+    assert not queen.turn(start, end, board.get_white_board()[2]), (
+        "Queen should not move through other pieces."
+    )
+
 
 def test_queen_move_backwards_horizontally():
     board = Board()
@@ -54,7 +72,10 @@ def test_queen_move_backwards_horizontally():
     queen = board.get_white_board()[2][4][4][1]
     start = [4, 4]
     end = [4, 2]
-    assert queen.turn(start, end, board.get_white_board()[2]), "Queen should be able to move backward horizontally."
+    assert queen.turn(start, end, board.get_white_board()[2]), (
+        "Queen should be able to move backward horizontally."
+    )
+
 
 def test_queen_move_backwards_vertically():
     board = Board()
@@ -63,7 +84,10 @@ def test_queen_move_backwards_vertically():
     queen = board.get_white_board()[2][4][4][1]
     start = [4, 4]
     end = [6, 4]
-    assert queen.turn(start, end, board.get_white_board()[2]), "Queen should be able to move backward vertically."
+    assert queen.turn(start, end, board.get_white_board()[2]), (
+        "Queen should be able to move backward vertically."
+    )
+
 
 def test_queen_move_backwards_diagonally():
     board = Board()
@@ -72,4 +96,6 @@ def test_queen_move_backwards_diagonally():
     queen = board.get_white_board()[2][4][4][1]
     start = [4, 4]
     end = [6, 2]
-    assert queen.turn(start, end, board.get_white_board()[2]), "Queen should be able to move backward diagonally."
+    assert queen.turn(start, end, board.get_white_board()[2]), (
+        "Queen should be able to move backward diagonally."
+    )

@@ -3,3 +3,11 @@
 __pycache__/
 
 .pytest_cache/
+
+README_md_ltex.json
+
+src/simple_chess_game.egg-info
+
+.direnv/
+
+.envrc

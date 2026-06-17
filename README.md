@@ -48,30 +48,24 @@ $ cd simple-chess-game
 $ python3 -m venv .venv
 ```
 
-4. Modify the "activate" file inside ".venv/bin/" by adding the path to the "src" folder at the end:
-``` 
-export PYTHONPATH=/home/user/simple-chess-game/src 
-```
-
-5. Initialize the virtual environment:
+4. Initialize the virtual environment:
 ```
 $ . .venv/bin/activate
 ```
 
-
-6. Install the required python packages:
+5. Install the python package:
 ```
-pip install flask flask-socketio pytest
+pip install -e .[dev]
 ```
 
-7. Start development server:
+6. Start development server:
 ```
 flask run
 ```
 
-8. Open your browser and visit http://127.0.0.1:5000 to access the site 
+7. Open your browser and visit http://127.0.0.1:5000 to access the site 
 
-9. To run unit tests, execute the following:
+8. To run unit tests, execute the following:
 ```
 pytest
 ```

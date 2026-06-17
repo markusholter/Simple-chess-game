@@ -1,7 +1,8 @@
-from objects.Board import Board
-from objects.pieces.Rook import Rook
+from chess_game.objects.Board import Board
+from chess_game.objects.pieces.Rook import Rook
 
 # Using GPT to generate test cases
+
 
 def test_rook_horizontal_move():
     board = Board()
@@ -10,7 +11,10 @@ def test_rook_horizontal_move():
     rook = board.get_white_board()[2][4][4][1]
     start = [4, 4]
     end = [4, 7]
-    assert rook.turn(start, end, board.get_white_board()[2]), "Rook should move horizontally."
+    assert rook.turn(start, end, board.get_white_board()[2]), (
+        "Rook should move horizontally."
+    )
+
 
 def test_rook_vertical_move():
     board = Board()
@@ -19,7 +23,10 @@ def test_rook_vertical_move():
     rook = board.get_white_board()[2][4][4][1]
     start = [4, 4]
     end = [1, 4]
-    assert rook.turn(start, end, board.get_white_board()[2]), "Rook should move vertically."
+    assert rook.turn(start, end, board.get_white_board()[2]), (
+        "Rook should move vertically."
+    )
+
 
 def test_rook_invalid_move_diagonally():
     board = Board()
@@ -28,7 +35,10 @@ def test_rook_invalid_move_diagonally():
     rook = board.get_white_board()[2][4][4][1]
     start = [4, 4]
     end = [2, 2]  # Invalid move for a rook (moving diagonally like a bishop)
-    assert not rook.turn(start, end, board.get_white_board()[2]), "Rook should not move diagonally."
+    assert not rook.turn(start, end, board.get_white_board()[2]), (
+        "Rook should not move diagonally."
+    )
+
 
 def test_rook_move_with_obstacle_in_path():
     board = Board()
@@ -36,7 +46,10 @@ def test_rook_move_with_obstacle_in_path():
     start = [7, 0]
     end = [4, 0]
     # Pawns are already in the way from the initial board setup
-    assert not rook.turn(start, end, board.get_white_board()[2]), "Rook should not move through other pieces."
+    assert not rook.turn(start, end, board.get_white_board()[2]), (
+        "Rook should not move through other pieces."
+    )
+
 
 def test_rook_move_backwards_vertically():
     board = Board()
@@ -45,7 +58,10 @@ def test_rook_move_backwards_vertically():
     rook = board.get_white_board()[2][4][4][1]
     start = [4, 4]
     end = [6, 4]
-    assert rook.turn(start, end, board.get_white_board()[2]), "Rook should be able to move backward vertically."
+    assert rook.turn(start, end, board.get_white_board()[2]), (
+        "Rook should be able to move backward vertically."
+    )
+
 
 def test_rook_move_backwards_horizontally():
     board = Board()
@@ -54,4 +70,6 @@ def test_rook_move_backwards_horizontally():
     rook = board.get_white_board()[2][4][4][1]
     start = [4, 4]
     end = [4, 2]
-    assert rook.turn(start, end, board.get_white_board()[2]), "Rook should be able to move backward horizontally."
+    assert rook.turn(start, end, board.get_white_board()[2]), (
+        "Rook should be able to move backward horizontally."
+    )
